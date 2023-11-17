@@ -1,36 +1,53 @@
 <!DOCTYPE html>
 
-Matthew Anand & Ben Harris-Eze
 
 <html>
 
 <head>
-    <title>Lab 09</title>
-
+    <title>Assignment 2</title>
+    <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
     <header>
         <h1>Notes</h1>
-        <a href=""
-        <div class = "dropdown">
-            <button class "dropdown">Contact Us</button>
+        <!-- this is for the github information -->
+        <div id = "dropdown">
+            <button class = "dropdown">Credits</button>
             <a></a>
             <a></a>
         </div>
+
     </header>
     
     <main>
     
-        <script src="genres.json"></script>
-        <script src="sample-songs.json"></script>
-        <script src = "artists.json"></script>
-        <script src = "singlePage.js"></script>
         
+        <form action ="/index.html" method="GET" class = "songFinder"> 
+            <!-- section for song selection-->
+            <div class = "songs">
+                <input type="radio"/>
+                <select id = "songSelect"></select>
+                
+            </div>
+             <!-- section for artist selection-->
+             <div class = "artists">
+                <input type="radio"/>
+                <select id ="artistSelect"></select>
+            </div>
+
+              <!-- section for genre selection-->
+              <div class = "genres">
+                <input type="radio"/>
+                <select id = "genreSelect"></select>
+            </div>
+        </form>
     </main>
 
-    <d
 
 </body>
-
+<script src="genres.json"></script>
+<script src="sample-songs.json"></script>
+<script src = "artists.json"></script>
+<script src = "singlePage.js"></script>
 </html>

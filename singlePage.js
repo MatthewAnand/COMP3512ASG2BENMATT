@@ -2,14 +2,26 @@ const artist = JSON.parse(artists);
 const genre = JSON.parse(genres);
 const song = JSON.parse(songs);
 
-function selectArtist(){
-    //getting into the main file
-    const main = document.querySelector("main");
+function selectSong(){
+  const select = document.querySelector("#songSelect");
+  
+  for (s of song){
+    const songTitle = document.createTextNode(`${s.title}`);
 
-    //creating form 
-    const artistGenreForm = document.createElement("form");
-    //creating a select elemeent for all the artists 
-    const select = document.createElement("select");
+    const option = document.createElement("option");
+    
+    // adding song title text to option element 
+    option.appendChild(songTitle);
+
+    //adding song title as a option to select tag
+    select.appendChild(option);
+  }
+}
+
+function selectArtist(){
+
+    //getting select from html document 
+    const select = document.querySelector("#artistSelect");
 
         for(a of artist){
             // storing the current artists name as a text node
@@ -22,19 +34,16 @@ function selectArtist(){
             select.appendChild(option);
             
         }
-        //adding the select into the form tag
-        artistGenreForm.appendChild(select);
+  
         //adding the form tag into the main html tag
-        main.append(artistGenreForm);
+        
 
    
 }
 
 function selectGenre(){
-    
-  const main = document.querySelector("main");
-  const select = document.createElement("select");
-  const form = document.querySelector("form");
+  
+  const select = document.querySelector("#genreSelect");
   
   for (g of genre){
     const genreName = document.createTextNode(`${g.name}`);
@@ -43,10 +52,9 @@ function selectGenre(){
 
     select.appendChild(option);
   }
-  form.appendChild(select);
-  main.appendChild(form);
 
 }
 
 selectArtist();
 selectGenre();
+selectSong();
