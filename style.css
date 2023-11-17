@@ -1,3 +1,6 @@
+html{
+    margin: 0px;
+}
 body{
     height: 100vh;
 }
@@ -5,4 +8,12 @@ body{
 header{
     background-color: beige;
     width: 100%;
+
+}
+
+header h1 {
+}
+
+header .dropdown{
+    float: right;
 }

@@ -1,0 +1,31 @@
+@font-face {
+    font-family: NeuMontrealBold;
+    src: url("/Fonts/PPNeueMontreal-Bold.otf");
+}
+
+@font-face {
+    font-family: NeuMontreal;
+    src: url("/Fonts/PPNeueMontreal-Book.otf");
+}
+html{
+    margin: 0px;
+}
+body{
+    height: 100vh;
+    width:100%
+}
+
+header{
+    background-color: white;
+    width: 100%;
+}
+
+header h1 {
+   margin: 0%; 
+   font-family: NeuMontrealBold;
+}
+
+main{
+    background-color: #f9f9f9;
+    height: 50%;
+}
