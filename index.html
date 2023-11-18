@@ -6,22 +6,21 @@
 <head>
     <title>Assignment 2</title>
     <link rel="stylesheet" href="style/style.css">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
 <body>
     <header>
-        <h1>Notes</h1>
+        
         <!-- this is for the github information -->
-        <div id = "dropdown">
-            <button class = "dropdown">Credits</button>
-            <a></a>
-            <a></a>
+        <h1>Notes</h1> <div id = "dropdown">
+            <button class = "dropdown" id = "playlist">Playlist</button>
+            <button class = "dropdown" id = "credits">Credits</button>
         </div>
 
     </header>
-    
+        
     <main>
-    
         
         <form action ="/index.html" method="GET" class = "songFinder"> 
             <!-- section for song selection-->
@@ -44,7 +43,9 @@
         </form>
     </main>
 
-
+    <footer>
+        <h2 id = "footer-text">Ben Harris-Eze, Matthew Anad</h2>
+    </footer>
 </body>
 <script src="genres.json"></script>
 <script src="sample-songs.json"></script>
