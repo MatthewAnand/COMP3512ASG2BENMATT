@@ -133,7 +133,7 @@ function populateTable(songList){
     const a = document.createTextNode(s.artist.name);
     const y = document.createTextNode(s.year);
     const g = document.createTextNode(s.genre.name);
-    const p = document.createTextNode(s.popularity);
+    const p = document.createTextNode(s.details.popularity);
 
     titleRow.appendChild(t);
     artistRow.appendChild(a);
@@ -161,12 +161,12 @@ selectGenre();
 selectSong();
 
 //adding handler for filter button 
-const clearBtn = document.querySelector("#filter");
+const filterBtn = document.querySelector("#filter");
 const songSelect = document.querySelector("#songSelect");
-clearBtn.addEventListener("click",()=>{
+filterBtn.addEventListener("click",()=>{
   // getting all the radio buttons 
   const buttons = document.querySelectorAll("input");
-
+  console.log(buttons[0].checked);
   // checking for index of radio button to see which one is chosen 
   let foundIndex = 0;
   for (let i =0; i < buttons.length; i++){
