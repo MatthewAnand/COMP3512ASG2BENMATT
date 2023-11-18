@@ -28,19 +28,33 @@
         <form action ="/index.html" method="GET" class = "songFinder"> 
             <!-- section for song selection-->
             <div class = "songs">
-                <label><h3>Song</h3><input type="radio"/></label>
+                <label><h3>Song</h3><input type="radio" name="choice" value ="song"/></label>
                 <select id = "songSelect"></select>
-                
             </div>
+
              <!-- section for artist selection-->
              <div class = "artists">
-                <label><h3>Artist</h3></label><input type="radio"/><select id ="artistSelect"></select>
+                <label><h3>Artist</h3></label><input type="radio" name="choice" value = "artist"/><select id ="artistSelect"></select>
             </div>
               <!-- section for genre selection-->
               <div class = "genres">
-                <h3>Genre</h3><input type="radio"/><select id = "genreSelect"></select>
+                <h3>Genre</h3><input type="radio" name="choice"/><select id = "genreSelect" value = "genre"></select>
             </div>
+            <button id = "clear">Clear</button>
+            <button id="filter">Filter</button>
         </form>
+
+        <table>
+            <h2>Search Results</h2>
+            <tr>
+                <td>Title</td>
+                <td>Artist</td>
+                <td>Year</td>
+                <td>Genre</td>
+                <td>Popularity</td>
+            </tr>
+            
+        </table>
     </main>
 
     <footer>

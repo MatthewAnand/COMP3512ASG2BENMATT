@@ -97,3 +97,7 @@ main h1{
 h3{
     font-family: NeuMontrealMed;
 }
+
+td{
+    padding: 20px;
+}
