@@ -8,6 +8,11 @@
     src: url("/Fonts/PPNeueMontreal-Book.otf");
 }
 
+@font-face {
+    font-family: NeuMontrealMed;
+    src: url("/Fonts/PPNeueMontreal-Medium.otf");
+}
+
 body{
     position: relative;
     height: 100vh;
@@ -22,16 +27,24 @@ header{
     align-items: center;
 
 }
-
+div h1{
+    font-family: NeuMontrealBold;
+}
 header h1 {
    margin: 0%; 
    font-family: NeuMontrealBold;
+   width: 30%;
    text-align: center;
    color: white;
    padding-top: 20px;
    padding: 10px;
    font-size: 50px;
    
+}
+
+#playlist,#credits{
+    display: inline;
+    align-items: center;
 }
 
 #credits,#playlist{
@@ -42,14 +55,16 @@ header h1 {
     border: 4px,solid,white;
     font-family: NeuMontreal;
     margin-left: auto;
+    text-decoration: none;
+    font-size: 17px;
 }
 
 #credits:hover,#playlist:hover{
     background-color: grey;
 }
 main{
-    background-color: #f9f9f9;
-    height: 50%;
+    background-color: white;
+    height: 87%;
 }
 
 footer{
@@ -67,4 +82,18 @@ footer{
     text-align: center;
     font-family: NeuMontreal;
     
+}
+
+div h1{
+    color:black;
+}
+
+main h1{
+    color: black;
+    font-family: NeuMontrealBold;
+    text-align: center;
+}
+
+h3{
+    font-family: NeuMontrealMed;
 }

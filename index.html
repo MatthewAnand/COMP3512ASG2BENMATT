@@ -13,32 +13,32 @@
     <header>
         
         <!-- this is for the github information -->
-        <h1>Notes</h1> <div id = "dropdown">
-            <button class = "dropdown" id = "playlist">Playlist</button>
-            <button class = "dropdown" id = "credits">Credits</button>
+        <h1>Notes</h1> 
+        <div id = "dropdown">
+            <div id = "playlist"><a class = "dropdown" id = "playlist" href = "index.html">Playlist</a></div>
+            <div id = "credits"><a class = "dropdown" id = "credits" href = "index.html" >Credits</a></div>
         </div>
 
     </header>
         
     <main>
+        <h1 id ="songSearch">Song Search</h1>
+        <hr>
         
         <form action ="/index.html" method="GET" class = "songFinder"> 
             <!-- section for song selection-->
             <div class = "songs">
-                <input type="radio"/>
+                <label><h3>Song</h3><input type="radio"/></label>
                 <select id = "songSelect"></select>
                 
             </div>
              <!-- section for artist selection-->
              <div class = "artists">
-                <input type="radio"/>
-                <select id ="artistSelect"></select>
+                <label><h3>Artist</h3></label><input type="radio"/><select id ="artistSelect"></select>
             </div>
-
               <!-- section for genre selection-->
               <div class = "genres">
-                <input type="radio"/>
-                <select id = "genreSelect"></select>
+                <h3>Genre</h3><input type="radio"/><select id = "genreSelect"></select>
             </div>
         </form>
     </main>
