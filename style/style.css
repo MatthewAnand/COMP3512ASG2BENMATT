@@ -98,6 +98,17 @@ h3{
     font-family: NeuMontrealMed;
 }
 
-td{
-    padding: 20px;
+.searchResult{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 20px;  
+}
+  
+  tr:nth-child(even){background-color: #f2f2f2
 }
