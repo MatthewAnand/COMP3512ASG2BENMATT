@@ -2,13 +2,16 @@ const artist = JSON.parse(artists);
 const genre = JSON.parse(genres);
 const song = JSON.parse(songs);
 
+/** Used to create default option in a select element (pick) */
 function defaultSelect(pick)
 {
   const defaultSelect = document.createElement("option");
     defaultSelect.appendChild(document.createTextNode("--"))
     pick.appendChild(defaultSelect);
 }
-function selectSong(){
+
+/** this is used to s */
+function populateSong(){
   const select = document.querySelector("#songSelect");
   defaultSelect(select);
   for (s of song){
@@ -25,7 +28,7 @@ function selectSong(){
   }
 }
 
-function selectArtist(){
+function populateArtist(){
 
     //getting select from html document 
     const select = document.querySelector("#artistSelect");
@@ -39,14 +42,15 @@ function selectArtist(){
             //adding the artist name as a text node inbetween the option tags 
             option.appendChild(artistName);
 
-            //adding value to artist option
+            //adding id value to artist option
             option.setAttribute("value",`${a.id}`);
+
             //adding this artists name as one of the options in the select tag
             select.appendChild(option);
             
         }
   
-        //adding the form tag into the main html tag
+        
         
 
    
@@ -55,7 +59,7 @@ function selectArtist(){
 /**
  * function for filling out the select with options of all genres
  */
-function selectGenre(){
+function populateGenre(){
   
   const select = document.querySelector("#genreSelect");
   //default selection
@@ -79,10 +83,10 @@ function selectGenre(){
 /**
  * function for finding song selected
 */
-function searchArtist(id){
+function searchSong(id){
   const songList = [];
   for (s of song){
-    if (id == s.id){
+    if (id == s.song_id){
       songList.push(s);
     }
   }
@@ -129,7 +133,6 @@ function populateTable(songList){
 
     //creating text nodes for each td
     const t = document.createTextNode(s.title);
-    console.log(t);
     const a = document.createTextNode(s.artist.name);
     const y = document.createTextNode(s.year);
     const g = document.createTextNode(s.genre.name);
@@ -156,46 +159,53 @@ function populateTable(songList){
 
 
 
-selectArtist();
-selectGenre();
-selectSong();
+populateArtist();
+populateGenre();
+populateSong();
 
 //adding handler for filter button 
 const filterBtn = document.querySelector("#filter");
-const songSelect = document.querySelector("#songSelect");
+
 filterBtn.addEventListener("click",()=>{
-  // getting all the radio buttons 
-  const buttons = document.querySelectorAll("input");
-  console.log(buttons[0].checked);
+ 
+// getting all the radio buttons 
+ const buttons = document.querySelectorAll("input[type=radio]");
+ const selectTest = document.querySelectorAll("select");
+
+
   // checking for index of radio button to see which one is chosen 
   let foundIndex = 0;
+  let found = false;
   for (let i =0; i < buttons.length; i++){
     if (buttons[i].checked){
-      foundIndex = i;
+        foundIndex = i;
+        found = true;
     }
-    const button = buttons[foundIndex];
-
+}
+    const btn = buttons[foundIndex];
+    console.log(btn);
     // filtering process depending on the selected radio button
     
     // variable for songs that will be displayed on table
     let songList = [];
-    if (button.value == "song"){
+
+    if (btn.value == "song" && found == true){
       const songChoice = document.querySelector("#songSelect");
-      songList = searchGenres(songChoice.value);
+      songList = searchSong(songChoice.value);
       populateTable(songList);
     }
-    else if (button.value== "genre"){
+    else if (btn.value== "genre" && found == true){
       const genreChoice = document.querySelector("#genreSelect");
       songList = searchGenres(genreChoice.value);
       populateTable(songList);
     }
-    else if (button.value = "artist"){
+    else if (btn.value = "artist" && found == true){
       const artistChoice = document.querySelector("#artistSelect");
       songList = searchArtists(artistChoice.value);
       populateTable(songList);
     }
     else{
-
+        alert("Nothing Selected");
     }
-  }
+  
 });
