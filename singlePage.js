@@ -154,9 +154,13 @@ function populateTable(songList){
   }
 }
 
+/**
+ * This method is used to filter the song based on the input chosen
+ *
+ */
+function filter(filterBy){
 
-
-
+}
 
 
 populateArtist();
@@ -209,3 +213,5 @@ filterBtn.addEventListener("click",()=>{
     }
   
 });
+
+// event listener for unchecking a radio button
