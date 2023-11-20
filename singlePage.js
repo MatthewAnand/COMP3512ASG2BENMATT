@@ -125,6 +125,8 @@ function populateTable(songList){
 
   for(s of songList){
     const row = document.createElement("tr");
+    //giving the row a class name
+    row.setAttribute("class","song-entry")
     const titleRow = document.createElement("td");
     const artistRow = document.createElement("td");
     const yearRow = document.createElement("td");
@@ -162,6 +164,13 @@ function filter(filterBy){
 
 }
 
+function clear(){
+    let rows = document.querySelectorAll(".song-entry");
+    for (let row of rows ){
+        row.remove();
+    }
+}
+
 
 populateArtist();
 populateGenre();
@@ -171,7 +180,9 @@ populateSong();
 const filterBtn = document.querySelector("#filter");
 
 filterBtn.addEventListener("click",()=>{
- 
+ // clearing previous search 
+ clear();
+
 // getting all the radio buttons 
  const buttons = document.querySelectorAll("input[type=radio]");
  const selectTest = document.querySelectorAll("select");
@@ -213,5 +224,10 @@ filterBtn.addEventListener("click",()=>{
     }
   
 });
+
+//clear event listener 
+const clearButton = document.querySelector("#clear-button");
+clearButton.addEventListener("click",clear);
+
 
 // event listener for unchecking a radio button
