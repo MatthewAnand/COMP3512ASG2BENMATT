@@ -231,3 +231,34 @@ clearButton.addEventListener("click",clear);
 
 
 // event listener for unchecking a radio button
+
+
+//playlist page stuff below 
+
+
+//singlesong
+function buildSongRow(song){
+  table = document.querySelector("tbody");
+  row = document.createElement("tr")
+  row.id="row";
+  titleTable = document.createElement("td");
+  titleLink = document.createElement("a")
+  titleLink.addEventListener("click",function(){
+     singleSong = document.querySelector("#singleSongPage");
+     index = document.querySelector("#index");
+     singleSong.hidden = false;
+     index.hidden=true;
+     // calc duration
+     const songLength = document.querySelector("#duration");
+     let minutes = (song.details.duration / 60).toFixed(0);
+     let seconds = (song.details.duration % 60);
+     if(seconds < 10){ // dumb fix to add a leading zero.
+        songLength.textContent= `${minutes}:0${seconds}`;
+     }else{
+        songLength.textContent= `${minutes}:${seconds}`;
+     }
+
+     
+  })
+  
+}
