@@ -53,8 +53,96 @@ function defaultSelect(pick)
    populateTable(sortedSongs);
 
   
-   //Filter Songs based on choice (radio buttons)
+
+   // adding search method for song, artist, and genre
    
+  /**
+   * function for finding song selected
+  */
+  function searchSong(id){
+    const songList = [];
+    for (s of sortedSongs){
+      if (id == s.song_id){
+        songList.push(s);
+      }
+    }
+    return songList;
+  }
+
+  /**
+   * function  for finding specific artist selected
+   */
+  function searchArtists(id){
+    const songList = []; 
+    for (s of sortedSongs){
+      if (id == s.artist.id){
+        songList.push(s);
+      }
+    }
+    return songList;
+  }
+
+  /**
+   * function  for finding specific genre selected
+   */
+  function searchGenres(id){
+    const songList = []; 
+    for (s of sortedSongs){
+      if (id == s.genre.id){
+        songList.push(s);
+      }
+    }
+
+    return songList;
+  }
+
+   //Filter Songs based on choice (radio buttons)
+   //adding handler for filter button 
+  const filterBtn = document.querySelector("#filter");
+
+  filterBtn.addEventListener("click",()=>{
+  // clearing previous search 
+  clear();
+
+  // getting all the radio buttons 
+  const buttons = document.querySelectorAll("input[type=radio]");
+
+    // checking for index of radio button to see which one is chosen 
+    let foundIndex = 0;
+    let found = false;
+    for (let i =0; i < buttons.length; i++){
+      if (buttons[i].checked){
+          foundIndex = i;
+          found = true;
+      }
+  }
+      const btn = buttons[foundIndex];
+      console.log(btn);
+      // filtering process depending on the selected radio button
+      
+      // variable for songs that will be displayed on table
+      let songList = [];
+
+      if (btn.value == "song" && found == true){
+        const songChoice = document.querySelector("#songSelect");
+        songList = searchSong(songChoice.value);
+        populateTable(songList);
+      }
+      else if (btn.value== "genre" && found == true){
+        const genreChoice = document.querySelector("#genreSelect");
+        songList = searchGenres(genreChoice.value);
+        populateTable(songList);
+      }
+      else if (btn.value == "artist" && found == true){
+        const artistChoice = document.querySelector("#artistSelect");
+        songList = searchArtists(artistChoice.value);
+        populateTable(songList);
+      }
+      else{
+          alert("Nothing Selected");
+      }
+    
+  });
 
 
 
@@ -146,45 +234,6 @@ function populateGenre(){
 
 }
 
-/**
- * function for finding song selected
-*/
-function searchSong(id){
-  const songList = [];
-  for (s of sortedSongs){
-    if (id == s.song_id){
-      songList.push(s);
-    }
-  }
-  return songList;
-}
-
-/**
- * function  for finding specific artist selected
- */
-function searchArtists(id){
-  const songList = []; 
-  for (s of song){
-    if (id == s.artist.id){
-      songList.push(s);
-    }
-  }
-  return songList;
-}
-
-/**
- * function  for finding specific genre selected
- */
-function searchGenres(id){
-  const songList = []; 
-  for (s of song){
-    if (id == s.genre.id){
-      songList.push(s);
-    }
-  }
-
-  return songList;
-}
 
 /**
  * Fills row based on object pased and property name passed
