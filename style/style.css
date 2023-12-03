@@ -99,6 +99,24 @@ h3{
     font-family: NeuMontrealMed;
 }
 
+ h2{
+    font-family: NeuMontrealBold;
+}
+thead td{
+    font-family: NeuMontrealBold;
+}
+
+tbody td{
+    font-family: NeuMontrealMed;
+}
+
+option, select{
+    font-family: NeuMontrealMed;
+}
+
+button {
+    font-family: NeuMontrealBold;
+}
 .searchResult{
     border-collapse: collapse;
     border-spacing: 0;

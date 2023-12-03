@@ -32,8 +32,10 @@ function defaultSelect(pick)
       }
    });
    
-   // Adding songs from api to song select tag
+   // adding default option to song select 
    defaultSelect(document.querySelector("#songSelect"));
+
+   // Adding songs from api to song select tag
    sortedSongs.forEach(s =>{
 
     const select = document.querySelector("#songSelect");
@@ -57,7 +59,7 @@ function defaultSelect(pick)
    // adding search method for song, artist, and genre
    
   /**
-   * function for finding song selected
+   * Helper function for finding song selected
   */
   function searchSong(id){
     const songList = [];
@@ -70,7 +72,7 @@ function defaultSelect(pick)
   }
 
   /**
-   * function  for finding specific artist selected
+   * Helper function  for finding specific artist selected
    */
   function searchArtists(id){
     const songList = []; 
@@ -83,7 +85,7 @@ function defaultSelect(pick)
   }
 
   /**
-   * function  for finding specific genre selected
+   * Helper function  for finding specific genre selected
    */
   function searchGenres(id){
     const songList = []; 
@@ -97,9 +99,12 @@ function defaultSelect(pick)
   }
 
    //Filter Songs based on choice (radio buttons)
-   //adding handler for filter button 
+
+    
+  // getting filter button 
   const filterBtn = document.querySelector("#filter");
 
+  //adding handler for filter button
   filterBtn.addEventListener("click",()=>{
   // clearing previous search 
   clear();
@@ -117,7 +122,7 @@ function defaultSelect(pick)
       }
   }
       const btn = buttons[foundIndex];
-      console.log(btn);
+  
       // filtering process depending on the selected radio button
       
       // variable for songs that will be displayed on table
@@ -149,6 +154,12 @@ function defaultSelect(pick)
 
    //TODO event listeners for sorting songs when you click table headers
   
+   //artist filter 
+   document.querySelector("#artist-filter").addEventListener("click", (e) =>{
+    tableRows = document.querySelectorAll("tbody tr");
+    console.log(tableRows[0]);
+    
+   })
   
   
    // TODO Clicking song brings up Song
@@ -168,24 +179,7 @@ function defaultSelect(pick)
    
  
 
-/** this is used to s 
-function populateSong(){
-  const select = document.querySelector("#songSelect");
-  defaultSelect(select);
-  for (s of song){
-    const songTitle = document.createTextNode(`${s.title}`);
 
-    const option = document.createElement("option");
-    option.setAttribute("value",`${s.song_id}`);
-    option.className = "song-option";
-    // adding song title text to option element 
-    option.appendChild(songTitle);
-
-    //adding song title as a option to select tag
-    select.appendChild(option);
-  }
-}
-*/
 function populateArtist(){
 
     //getting select from html document 
