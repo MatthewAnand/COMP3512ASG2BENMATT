@@ -6,8 +6,9 @@ const song = JSON.parse(songs);
 function defaultSelect(pick)
 {
   const defaultSelect = document.createElement("option");
-    defaultSelect.appendChild(document.createTextNode("--"))
-    pick.appendChild(defaultSelect);
+  defaultSelect.value = "default";
+  defaultSelect.appendChild(document.createTextNode("--"))
+  pick.appendChild(defaultSelect);
 }
 
 //adding api to read songs 
@@ -16,10 +17,12 @@ function defaultSelect(pick)
    const url = 
    "http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
  
+   //grabbing song data from api 
    fetch(url)
    .then(resp => resp.json())
    .then(songs => {
-     // sorting songs by title
+     
+    // sorting songs by title
      const sortedSongs = songs.sort( (a,b) => {
       if (a.title < b.title){
         return -1;
@@ -30,7 +33,9 @@ function defaultSelect(pick)
    });
    
    // Adding songs from api to song select tag
+   defaultSelect(document.querySelector("#songSelect"));
    sortedSongs.forEach(s =>{
+
     const select = document.querySelector("#songSelect");
     const option = document.createElement("option");
     option.textContent = s.title;
@@ -39,21 +44,38 @@ function defaultSelect(pick)
     select.appendChild(option);
    })
 
+   //Adding artist to select tag
+   populateArtist();
+
+   //adding genre to select tag
+   populateGenre();
    //Displaying All songs initially
    populateTable(sortedSongs);
 
-   
+  
    //Filter Songs based on choice (radio buttons)
+   
+
+
+
 
    //TODO event listeners for sorting songs when you click table headers
+  
+  
+  
    // TODO Clicking song brings up Song
 
   
+  
+  
    // TODO filter button event listener
+   
    
    })
    .catch(error => console.log(error));
      
+
+   //end of dom content loaded 
   });
    
  
@@ -97,10 +119,6 @@ function populateArtist(){
             select.appendChild(option);
             
         }
-  
-        
-        
-
    
 }
 
@@ -191,48 +209,18 @@ function populateTable(songList){
   //getting tbody that row will be added to
   const tbody = document.querySelector("tbody");
 
+  // loop to go through every song from the api  
   for(s of songList){
+   
     const row = document.createElement("tr");
+  
     row.className = "song-entry";
      //new way to append to row
      fillRow(s,row,"title");
-     fillRow(s,row,"artist[name]");
+     fillRow(s.artist,row,"name");
      fillRow(s,row,"year");
-     fillRow(s,row,"genre[name]");
-     fillRow(s,row,"details.popularity");
-
-
-
-    /**  
-    //giving the row a class name
-    row.setAttribute("class","song-entry")
-    const titleRow = document.createElement("td");
-    const artistRow = document.createElement("td");
-    const yearRow = document.createElement("td");
-    const genreRow = document.createElement("td");
-    const popularityRow = document.createElement("td");
-
-    //creating text nodes for each td
-    const t = document.createTextNode(s.title);
-    const a = document.createTextNode(s.artist.name);
-    const y = document.createTextNode(s.year);
-    const g = document.createTextNode(s.genre.name);
-    const p = document.createTextNode(s.details.popularity);
-
-    titleRow.appendChild(t);
-    artistRow.appendChild(a);
-    yearRow.appendChild(y);
-    genreRow.appendChild(g);
-    popularityRow.appendChild(p);
-
-    row.appendChild(titleRow);
-    row.appendChild(artistRow);
-    row.appendChild(yearRow);
-    row.appendChild(genreRow);
-    row.appendChild(popularityRow);
-
-    tbody.appendChild(row);
-    */
+     fillRow(s.genre,row,"name");
+     fillRow(s.details,row,"popularity");
   }
 }
 
@@ -252,8 +240,7 @@ function clear(){
 }
 
 
-populateArtist();
-populateGenre();
+
 //populateSong();
 //loadSongs();
 
