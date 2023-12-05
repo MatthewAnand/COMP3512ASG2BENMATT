@@ -6,9 +6,8 @@ const song = JSON.parse(songs);
 function defaultSelect(pick)
 {
   const defaultSelect = document.createElement("option");
-  defaultSelect.value = "default";
-  defaultSelect.appendChild(document.createTextNode("--"))
-  pick.appendChild(defaultSelect);
+    defaultSelect.appendChild(document.createTextNode("--"))
+    pick.appendChild(defaultSelect);
 }
 
 //adding api to read songs 
@@ -17,12 +16,10 @@ function defaultSelect(pick)
    const url = 
    "http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
  
-   //grabbing song data from api 
    fetch(url)
    .then(resp => resp.json())
    .then(songs => {
-     
-    // sorting songs by title
+     // sorting songs by title
      const sortedSongs = songs.sort( (a,b) => {
       if (a.title < b.title){
         return -1;
@@ -32,12 +29,8 @@ function defaultSelect(pick)
       }
    });
    
-   // adding default option to song select 
-   defaultSelect(document.querySelector("#songSelect"));
-
    // Adding songs from api to song select tag
    sortedSongs.forEach(s =>{
-
     const select = document.querySelector("#songSelect");
     const option = document.createElement("option");
     option.textContent = s.title;
@@ -46,140 +39,43 @@ function defaultSelect(pick)
     select.appendChild(option);
    })
 
-   //Adding artist to select tag
-   populateArtist();
-
-   //adding genre to select tag
-   populateGenre();
    //Displaying All songs initially
    populateTable(sortedSongs);
 
-  
-
-   // adding search method for song, artist, and genre
    
-  /**
-   * Helper function for finding song selected
-  */
-  function searchSong(id){
-    const songList = [];
-    for (s of sortedSongs){
-      if (id == s.song_id){
-        songList.push(s);
-      }
-    }
-    return songList;
-  }
-
-  /**
-   * Helper function  for finding specific artist selected
-   */
-  function searchArtists(id){
-    const songList = []; 
-    for (s of sortedSongs){
-      if (id == s.artist.id){
-        songList.push(s);
-      }
-    }
-    return songList;
-  }
-
-  /**
-   * Helper function  for finding specific genre selected
-   */
-  function searchGenres(id){
-    const songList = []; 
-    for (s of sortedSongs){
-      if (id == s.genre.id){
-        songList.push(s);
-      }
-    }
-
-    return songList;
-  }
-
    //Filter Songs based on choice (radio buttons)
 
-    
-  // getting filter button 
-  const filterBtn = document.querySelector("#filter");
-
-  //adding handler for filter button
-  filterBtn.addEventListener("click",()=>{
-  // clearing previous search 
-  clear();
-
-  // getting all the radio buttons 
-  const buttons = document.querySelectorAll("input[type=radio]");
-
-    // checking for index of radio button to see which one is chosen 
-    let foundIndex = 0;
-    let found = false;
-    for (let i =0; i < buttons.length; i++){
-      if (buttons[i].checked){
-          foundIndex = i;
-          found = true;
-      }
-  }
-      const btn = buttons[foundIndex];
-  
-      // filtering process depending on the selected radio button
-      
-      // variable for songs that will be displayed on table
-      let songList = [];
-
-      if (btn.value == "song" && found == true){
-        const songChoice = document.querySelector("#songSelect");
-        songList = searchSong(songChoice.value);
-        populateTable(songList);
-      }
-      else if (btn.value== "genre" && found == true){
-        const genreChoice = document.querySelector("#genreSelect");
-        songList = searchGenres(genreChoice.value);
-        populateTable(songList);
-      }
-      else if (btn.value == "artist" && found == true){
-        const artistChoice = document.querySelector("#artistSelect");
-        songList = searchArtists(artistChoice.value);
-        populateTable(songList);
-      }
-      else{
-          alert("Nothing Selected");
-      }
-    
-  });
-
-
-
-
    //TODO event listeners for sorting songs when you click table headers
-  
-   //artist filter 
-   document.querySelector("#artist-filter").addEventListener("click", (e) =>{
-    tableRows = document.querySelectorAll("tbody tr");
-    console.log(tableRows[0]);
-    
-   })
-  
-  
    // TODO Clicking song brings up Song
 
   
-  
-  
    // TODO filter button event listener
-   
    
    })
    .catch(error => console.log(error));
      
-
-   //end of dom content loaded 
   });
    
  
 
+/** this is used to s 
+function populateSong(){
+  const select = document.querySelector("#songSelect");
+  defaultSelect(select);
+  for (s of song){
+    const songTitle = document.createTextNode(`${s.title}`);
 
+    const option = document.createElement("option");
+    option.setAttribute("value",`${s.song_id}`);
+    option.className = "song-option";
+    // adding song title text to option element 
+    option.appendChild(songTitle);
+
+    //adding song title as a option to select tag
+    select.appendChild(option);
+  }
+}
+*/
 function populateArtist(){
 
     //getting select from html document 
@@ -201,6 +97,10 @@ function populateArtist(){
             select.appendChild(option);
             
         }
+  
+        
+        
+
    
 }
 
@@ -228,6 +128,45 @@ function populateGenre(){
 
 }
 
+/**
+ * function for finding song selected
+*/
+function searchSong(id){
+  const songList = [];
+  for (s of sortedSongs){
+    if (id == s.song_id){
+      songList.push(s);
+    }
+  }
+  return songList;
+}
+
+/**
+ * function  for finding specific artist selected
+ */
+function searchArtists(id){
+  const songList = []; 
+  for (s of song){
+    if (id == s.artist.id){
+      songList.push(s);
+    }
+  }
+  return songList;
+}
+
+/**
+ * function  for finding specific genre selected
+ */
+function searchGenres(id){
+  const songList = []; 
+  for (s of song){
+    if (id == s.genre.id){
+      songList.push(s);
+    }
+  }
+
+  return songList;
+}
 
 /**
  * Fills row based on object pased and property name passed
@@ -252,18 +191,19 @@ function populateTable(songList){
   //getting tbody that row will be added to
   const tbody = document.querySelector("tbody");
 
-  // loop to go through every song from the api  
   for(s of songList){
-   
     const row = document.createElement("tr");
-  
     row.className = "song-entry";
      //new way to append to row
      fillRow(s,row,"title");
-     fillRow(s.artist,row,"name");
+     fillRow(s,row,"artist[name]");
      fillRow(s,row,"year");
-     fillRow(s.genre,row,"name");
-     fillRow(s.details,row,"popularity");
+     fillRow(s,row,"genre[name]");
+     fillRow(s,row,"details.popularity");
+
+
+
+    
   }
 }
 
@@ -283,7 +223,8 @@ function clear(){
 }
 
 
-
+populateArtist();
+populateGenre();
 //populateSong();
 //loadSongs();
 
@@ -295,6 +236,14 @@ clearButton.addEventListener("click",clear);
 
 
 // event listener for unchecking a radio button
+
+//ALL MY SHIT
+
+//BUTTON TO SEE songView
+seeSong = document.createElement("td");
+seeSongButton = document.createElement("button");
+seeSongButton.id="view";
+seeSongButton.appendChild(seeSongButton);
 
 
 
