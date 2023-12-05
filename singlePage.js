@@ -62,12 +62,10 @@ function defaultSelect(pick)
    * Helper function for finding song selected
   */
   function searchSong(id){
-    const songList = [];
-    for (s of sortedSongs){
-      if (id == s.song_id){
-        songList.push(s);
-      }
-    }
+    const songList = sortedSongs.filter(s =>{
+      return id == s.song_id;
+    });
+
     return songList;
   }
 
@@ -75,12 +73,9 @@ function defaultSelect(pick)
    * Helper function  for finding specific artist selected
    */
   function searchArtists(id){
-    const songList = []; 
-    for (s of sortedSongs){
-      if (id == s.artist.id){
-        songList.push(s);
-      }
-    }
+    const songList = sortedSongs.filter(s =>{
+      return id == s.artist.id;
+    });
     return songList;
   }
 
@@ -88,13 +83,10 @@ function defaultSelect(pick)
    * Helper function  for finding specific genre selected
    */
   function searchGenres(id){
-    const songList = []; 
-    for (s of sortedSongs){
-      if (id == s.genre.id){
-        songList.push(s);
-      }
-    }
-
+    const songList = sortedSongs.filter(s =>{
+      return id == s.genre.id;
+    });
+    
     return songList;
   }
 
@@ -146,16 +138,27 @@ function defaultSelect(pick)
       else{
           alert("Nothing Selected");
       }
+
+
     
   });
-
-
-
 
    //TODO event listeners for sorting songs when you click table headers
   
    //artist filter 
    document.querySelector("#artist-filter").addEventListener("click", (e) =>{
+    //checking if a filter search has happened 
+    if (songList){
+      populateTable(songList.sort((a,b) =>{
+        if (a.song.artist.name < b.song.artist.name){
+          return -1;
+        }
+        else {
+          return 1;
+        }
+      }));
+    }
+    
     tableRows = document.querySelectorAll("tbody tr");
     console.log(tableRows[0]);
     
