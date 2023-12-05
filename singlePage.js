@@ -10,7 +10,55 @@ function defaultSelect(pick)
     pick.appendChild(defaultSelect);
 }
 
-/** this is used to s */
+//adding api to read songs 
+
+  document.addEventListener("DOMContentLoaded", () =>{
+   const url = 
+   "http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
+ 
+   fetch(url)
+   .then(resp => resp.json())
+   .then(songs => {
+     // sorting songs by title
+     const sortedSongs = songs.sort( (a,b) => {
+      if (a.title < b.title){
+        return -1;
+      }
+      else{
+        return 1;
+      }
+   });
+   
+   // Adding songs from api to song select tag
+   sortedSongs.forEach(s =>{
+    const select = document.querySelector("#songSelect");
+    const option = document.createElement("option");
+    option.textContent = s.title;
+    option.value = s.song_id;
+    option.className = "song-option";
+    select.appendChild(option);
+   })
+
+   //Displaying All songs initially
+   populateTable(sortedSongs);
+
+   
+   //Filter Songs based on choice (radio buttons)
+
+   //TODO event listeners for sorting songs when you click table headers
+   // TODO Clicking song brings up Song
+
+  
+   // TODO filter button event listener
+   
+   })
+   .catch(error => console.log(error));
+     
+  });
+   
+ 
+
+/** this is used to s 
 function populateSong(){
   const select = document.querySelector("#songSelect");
   defaultSelect(select);
@@ -27,7 +75,7 @@ function populateSong(){
     select.appendChild(option);
   }
 }
-
+*/
 function populateArtist(){
 
     //getting select from html document 
@@ -85,7 +133,7 @@ function populateGenre(){
 */
 function searchSong(id){
   const songList = [];
-  for (s of song){
+  for (s of sortedSongs){
     if (id == s.song_id){
       songList.push(s);
     }
@@ -120,11 +168,42 @@ function searchGenres(id){
   return songList;
 }
 
+/**
+ * Fills row based on object pased and property name passed
+ * @param {*} obj the song object
+ * @param {*} row 
+ * @param {*} songProp property of the sog object you want
+ */
+function fillRow(song, row, songProp){
+  //getting tbody 
+  const tbody = document.querySelector("tbody");
+  //selecting table row 
+  //creating a table description
+  const entry = document.createElement("td");
+  entry.textContent = song[songProp];
+  //adding table description to table row 
+  row.appendChild(entry);
+  //adding row to tbody
+  tbody.appendChild(row);
+}
+
 function populateTable(songList){
+  //getting tbody that row will be added to
   const tbody = document.querySelector("tbody");
 
   for(s of songList){
     const row = document.createElement("tr");
+    row.className = "song-entry";
+     //new way to append to row
+     fillRow(s,row,"title");
+     fillRow(s,row,"artist[name]");
+     fillRow(s,row,"year");
+     fillRow(s,row,"genre[name]");
+     fillRow(s,row,"details.popularity");
+
+
+
+    /**  
     //giving the row a class name
     row.setAttribute("class","song-entry")
     const titleRow = document.createElement("td");
@@ -153,6 +232,7 @@ function populateTable(songList){
     row.appendChild(popularityRow);
 
     tbody.appendChild(row);
+    */
   }
 }
 
@@ -174,56 +254,10 @@ function clear(){
 
 populateArtist();
 populateGenre();
-populateSong();
-
-//adding handler for filter button 
-const filterBtn = document.querySelector("#filter");
-
-filterBtn.addEventListener("click",()=>{
- // clearing previous search 
- clear();
-
-// getting all the radio buttons 
- const buttons = document.querySelectorAll("input[type=radio]");
- const selectTest = document.querySelectorAll("select");
+//populateSong();
+//loadSongs();
 
 
-  // checking for index of radio button to see which one is chosen 
-  let foundIndex = 0;
-  let found = false;
-  for (let i =0; i < buttons.length; i++){
-    if (buttons[i].checked){
-        foundIndex = i;
-        found = true;
-    }
-}
-    const btn = buttons[foundIndex];
-    console.log(btn);
-    // filtering process depending on the selected radio button
-    
-    // variable for songs that will be displayed on table
-    let songList = [];
-
-    if (btn.value == "song" && found == true){
-      const songChoice = document.querySelector("#songSelect");
-      songList = searchSong(songChoice.value);
-      populateTable(songList);
-    }
-    else if (btn.value== "genre" && found == true){
-      const genreChoice = document.querySelector("#genreSelect");
-      songList = searchGenres(genreChoice.value);
-      populateTable(songList);
-    }
-    else if (btn.value = "artist" && found == true){
-      const artistChoice = document.querySelector("#artistSelect");
-      songList = searchArtists(artistChoice.value);
-      populateTable(songList);
-    }
-    else{
-        alert("Nothing Selected");
-    }
-  
-});
 
 //clear event listener 
 const clearButton = document.querySelector("#clear-button");
@@ -231,3 +265,7 @@ clearButton.addEventListener("click",clear);
 
 
 // event listener for unchecking a radio button
+
+
+
+

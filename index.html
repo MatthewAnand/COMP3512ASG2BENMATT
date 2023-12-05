@@ -2,7 +2,8 @@
 
 
 <html>
-
+<!---IndexPage-->
+<section>
 <head>
     <title>Assignment 2</title>
     <link rel="stylesheet" href="style/style.css">
@@ -76,4 +77,72 @@
 <script src="sample-songs.json"></script>
 <script src = "artists.json"></script>
 <script src = "singlePage.js"></script>
+
+</section>
+
+<!--SingleSongPage-->
+
+<section id = "singleSongPage" hidden>
+
+<header>
+
+    <h1>Notes</h1> 
+    <div id = "dropdown">
+        <div id = "playlist"><a class = "dropdown" id = "playlist" href = "index.html">Playlist</a></div>
+        <div id = "credits"><a class = "dropdown" id = "credits" href = "index.html" >Credits</a></div>
+    </div>
+
+
+</header>
+
+<main>
+    <div class = "flex-container">
+        <div id = "radar">
+
+        </div>
+
+        <div id = "songInfo">
+ <h3>Song Information</h3>
+        <table id="songtable">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Artist</th>
+              <th>Year</th>
+              <th>Genre</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="titleSong"></td>
+              <td id="artist"></td>
+              <td id="year"></td>
+              <td id="genre"></td>
+              <td id="duration"></td>
+            </tr>
+          </tbody>
+        </table>
+        <ul id="dataList">
+          <li id="bpm"></li>
+          <li id="energy"></li>
+          <li id="danceability"></li>
+          <li id="liveness"></li>
+          <li id="valence"></li>
+          <li id="acousticness"></li>
+          <li id="speechiness"></li>
+          <li id="popularity"></li>
+        </ul>
+        </div>
+
+
+    </div>
+</main>
+
+<footer>
+        <h2 id = "footer-text">Ben Harris-Eze, Matthew Anand</h2>
+    </footer>
+</section>
+
+
 </html>
