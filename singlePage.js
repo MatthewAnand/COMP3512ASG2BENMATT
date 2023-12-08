@@ -104,16 +104,16 @@ function defaultSelect(pick)
   // getting all the radio buttons 
   const buttons = document.querySelectorAll("input[type=radio]");
 
-    // checking for index of radio button to see which one is chosen 
-    let foundIndex = 0;
+    // checking for home of radio button to see which one is chosen 
+    let foundhome = 0;
     let found = false;
     for (let i =0; i < buttons.length; i++){
       if (buttons[i].checked){
-          foundIndex = i;
+          foundhome = i;
           found = true;
       }
   }
-      const btn = buttons[foundIndex];
+      const btn = buttons[foundhome];
   
       // filtering process depending on the selected radio button
       
@@ -300,5 +300,90 @@ clearButton.addEventListener("click",clear);
 // event listener for unchecking a radio button
 
 
+//SWITCHING TO SINGLESONG
+function buildViewSongButton(song){
+  seeSongButton.id = song.id;
+  seeSongButton.addEventListener("click", function(){
+     singleSong = document.querySelector("#singleSongPage");
+     home = document.querySelector("#home");
+    // singleSong.hidden = false;
+    // home.hidden=true;
 
+     // calc duration
+     const songLength = document.querySelector("#duration");
+     let minutes = (song.details.duration / 60).toFixed(0);
+     let seconds = (song.details.duration % 60);
+     songLength.textContent= `${minutes}:${seconds}`;
+
+     const songTitle = document.querySelector("#titleSong");
+     songTitle.textContent = song.title;
+     const songArtist = document.querySelector("#artist");
+     songArtist.textContent = song.artist.name;
+     const songYear = document.querySelector("#year");
+     songYear.textContent = song.year;
+     const songGenre = document.querySelector("#genre");
+     songGenre.textContent = song.genre.name;
+     const bpm = document.querySelector("#bpm");
+     const energy = document.querySelector("#energy");
+     const dance = document.querySelector("#danceability");
+     const live = document.querySelector("#liveness");
+     const valence= document.querySelector("#valence");
+     const acoustic = document.querySelector("#acousticness");
+     const speech = document.querySelector("#speechiness");
+     const pop = document.querySelector("#popularity");
+     bpm.textContent = "BPM: " +song.details.bpm;
+
+     //Energy
+     energy.textContent = "Energy: \u00A0 \u00A0 \u00A0\u00A0\u00A0\u00A0 ";
+     let energyBar = document.createElement(`progress`);
+     energyBar.setAttribute(`max`, 100);
+     energyBar.setAttribute(`value`, song.analytics.energy);
+     energy.appendChild(energyBar);
+
+     //Danceability
+     dance.textContent = "Danceability: ";
+     let danceabilityBar = document.createElement(`progress`);
+     danceabilityBar.setAttribute(`max`, 100);
+     danceabilityBar.setAttribute(`value`, song.analytics.danceability);
+     dance.appendChild(danceabilityBar);
+
+     //Liveness
+     live.textContent = "Liveness:\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00a0";
+     let livenessBar = document.createElement(`progress`);
+     livenessBar.setAttribute(`max`, 100);
+     livenessBar.setAttribute(`value`, song.analytics.liveness);
+     live.appendChild(livenessBar);
+
+     //Valence
+     valence.textContent = "Valence:\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0";
+     let valenceBar = document.createElement(`progress`);
+     valenceBar.setAttribute(`max`, 100);
+     valenceBar.setAttribute(`value`, song.analytics.valence);
+     valence.appendChild(valenceBar);
+
+     //Acousticness
+     acoustic.textContent = "Acousticness: ";
+     let acousticBar = document.createElement(`progress`);
+     acousticBar.setAttribute(`max`, 100);
+     acousticBar.setAttribute(`value`, song.analytics.acousticness);
+     acoustic.appendChild(acousticBar);
+
+     //Speechiness
+     speech.textContent = "Speechiness: \u00a0\u00a0";
+     let speechBar = document.createElement(`progress`);
+     speechBar.setAttribute(`max`, 100);
+     speechBar.setAttribute(`value`, song.analytics.speechiness);
+     speech.appendChild(speechBar);
+
+     //Popularity
+     pop.textContent = "Popularity: \u00a0\u00a0\u00a0\u00a0\u00a0";
+     let popBar = document.createElement(`progress`);
+     popBar.setAttribute(`max`, 100);
+     popBar.setAttribute(`value`, song.details.popularity);
+     pop.appendChild(popBar);
+
+     //radarChart
+     buildChart(song.details.bpm, song.analytics.energy, song.analytics.danceability, song.analytics.liveness, song.analytics.valence, song.analytics.acousticness, song.analytics.speechiness, song.details.popularity);
+  })
+}
 
