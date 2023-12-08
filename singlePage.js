@@ -46,14 +46,12 @@ function defaultSelect(pick)
     select.appendChild(option);
    })
 
-   //Adding artist to select tag
-   populateArtist();
-
-   //adding genre to select tag
-   populateGenre();
+   //Adding artist and genre to select tag
+   populate(artist,"#artistSelect");
+   populate(genre,"#genreSelect");
    //Displaying All songs initially
    populateTable(sortedSongs);
-   headerSort(sortedSongs);
+   //headerSort(sortedSongs);
   
 
    // adding search method for song, artist, and genre
@@ -89,11 +87,7 @@ function defaultSelect(pick)
     
     return songList;
   }
-
-   //Filter Songs based on choice (radio buttons)
-
-    
-  // getting filter button 
+   //Filter Songs based on choice (radio buttons)  
   const filterBtn = document.querySelector("#filter");
 
   //adding handler for filter button
@@ -139,8 +133,6 @@ function defaultSelect(pick)
           alert("Nothing Selected");
       }
       headerSort(songList);
-        
-   
     
   });
 
@@ -160,32 +152,22 @@ function defaultSelect(pick)
         }
       }
       else {
-        if (a.artist.name.toLowerCase() < b.artist.name.toLowerCase()){
-          return 1;
-        }
-        else{
-          return -1;
-        }
+        if (a.artist.name.toLowerCase() < b.artist.name.toLowerCase()) return 1;  
+        else return -1;
       }
-     
     });
     //making sure classname is swiched to on/off
     e.target.classList.toggle("on");
     populateTable(sorted);
    });
 
-           //popularity filter 
+    //popularity filter 
    document.querySelector(".popularity-filter").addEventListener("click", (e) =>{
     //checking if a filter search has happened 
     const sorted = songList.sort((a,b) =>{
-      if (a.details.popularity < b.details.popularity){
-        return -1;
-      }
-      else{
-        return 1;
-      }
+      if (a.details.popularity < b.details.popularity) return -1;
+      else return 1;
     });
-   
     populateTable(sorted);
    });     
 
@@ -207,62 +189,41 @@ function defaultSelect(pick)
    });
    // title filter 
    document.querySelector(".title-filter").addEventListener("click", (e) =>{
-    let header = document.querySelector(".title-filter"); 
     //sorting list of songs by title 
     const sorted = songList.sort((a,b) =>{
         //checking if a filter search has happened in the past
-      if (!header.classList.contains("on")){
-        if (a.title.toLowerCase() < b.title.toLowerCase()){
-          return -1;
-        }
-        else{
-          return 1;
-        }
+      if (!e.target.classList.contains("on")){
+        if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+        else return 1;
       }
       //reverse sorting lists of songs by title
       else{
-        if (a.title.toLowerCase() < b.title.toLowerCase()){
-          return 1;
-        }
-        else{
-          return -1;
-        }
+        if (a.title.toLowerCase() < b.title.toLowerCase()) return 1;
+        else return -1;
       }
-      
     });
     //making sure sort has been noticed 
-    header.classList.toggle("on");
+    e.target.classList.toggle("on");
     //displaying the new sorted table
     populateTable(sorted);
    });
 
    //year filter
    document.querySelector(".year-filter").addEventListener("click", (e) =>{
-    let header = document.querySelector(".year-filter"); 
-    
     const sorted = songList.sort((a,b) =>{
-     //checking if a sort has already happened 
       //case for if sort hasnt happened 
-      if (!header.classList.contains("on")){
-        if (a.year < b.year){
-          return -1;
-        }
-        else {
-          return 1;
-        }
+      if (!e.target.classList.contains("on")){
+        if (a.year < b.year) return -1;
+        else return 1;
       }
       //case for if sort has already happened before
       else {
-        if (b.year < a.year){
-          return -1;
-        }
-        else {
-          return 1;
-        }
+        if (b.year < a.year) return -1;
+        else return 1;
       }
     });
     //toggling header to keep track of a sort that has just happened
-    header.classList.toggle("on");
+    e.target.classList.toggle("on");
     //updating table with sorted array
     populateTable(sorted);
    });
@@ -313,44 +274,24 @@ function defaultSelect(pick)
 
    //end of dom content loaded 
   });
-   
- /**
-  * This method is used to populate the artist select element with all the artists from the artist JSON file
-  */
-function populateArtist(){
-    //getting select from html document 
-    const select = document.querySelector("#artistSelect");
-    defaultSelect(select);
-    //iterating through artists 
-        for(a of artist){
-           // creating option elemenet
-            const option = document.createElement("option");
-            //adding the artist name as text 
-            option.textContent = a.name;
-            //adding id value to artist option
-            option.value = a.id;
-            //adding this artists name as one of the options in the select tag
-            select.appendChild(option);  
-        }
-}
+  
 /**
- * function for filling out the select with options of all genres from the JSON file
+ * function for filling out the select with options from a list 
  */
-function populateGenre(){
-  const select = document.querySelector("#genreSelect");
-  //default selection
-  defaultSelect(select);
-  //iterating through all genres
-  for (g of genre){
-    //creatin the option element 
-    const option = document.createElement("option");
-    //adding genre name to option
-    option.textContent = g.name;
-    //giving the option a value
-    option.value = g.id;
-  //adding the created option to the select element 
-    select.appendChild(option);
-  }
+function populate(list,selectID){
+const select = document.querySelector(selectID);
+//default selection
+defaultSelect(select);
+//iterating through all of list 
+list.forEach(obj =>{
+  const option = document.createElement("option");
+  //adding name to option
+  option.textContent = obj["name"];
+  //adding id to option
+  option.value = obj["id"];
+  //adding created option to select
+  select.appendChild(option);
+});
 }
 
 /**
