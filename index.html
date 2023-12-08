@@ -9,18 +9,16 @@
     <meta name = "viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
+<section id="home">
 <body>
-    <header>
-        
+    <header> 
         <!-- this is for the github information -->
         <h1>Notes</h1> 
         <div id = "dropdown">
             <div id = "playlist"><a class = "dropdown" id = "playlist" href = "index.html">Playlist</a></div>
             <div id = "credits"><a class = "dropdown" id = "credits" href = "index.html" >Credits</a></div>
         </div>
-
     </header>
-        
     <main>
         <h1 id ="songSearch">Song Search</h1>
         <hr>
@@ -72,7 +70,92 @@
     <footer>
         <h2 id = "footer-text">Ben Harris-Eze, Matthew Anand</h2>
     </footer>
+</section>
+
+    <section id="singleSongPage">
+            <header> 
+                <!-- this is for the github information -->
+                <h1>Notes</h1> 
+                <div id = "dropdown">
+                    <div id = "playlist"><a class = "dropdown" id = "playlist" href = "index.html">Playlist</a></div>
+                    <div id = "credits"><a class = "dropdown" id = "credits" href = "index.html" >Credits</a></div>
+                </div>
+            </header>
+
+            <h3>Song Information</h3>
+            <table id="songtable">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Artist</th>
+                  <th>Year</th>
+                  <th>Genre</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="titleSong"></td>
+                  <td id="artist"></td>
+                  <td id="year"></td>
+                  <td id="genre"></td>
+                  <td id="duration"></td>
+                </tr>
+              </tbody>
+            </table>
+            <ul id="dataList">
+              <li id="bpm"></li>
+              <li id="energy"></li>
+              <li id="danceability"></li>
+              <li id="liveness"></li>
+              <li id="valence"></li>
+              <li id="acousticness"></li>
+              <li id="speechiness"></li>
+              <li id="popularity"></li>
+            </ul>
+
+          <div class="radar"> 
+              <canvas id="myChart" style="height: 600px"></canvas>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          <footer>
+            <h2 id = "footer-text">Ben Harris-Eze, Matthew Anand</h2>
+        </footer>
+    
+      </section>
+    
+    
+      <!--Playlist Page-->
+      <section id="playlistPage" >
+            <header> 
+                <!-- this is for the github information -->
+                <h1>Notes</h1> 
+                <div id = "dropdown">
+                    <div id = "playlist"><a class = "dropdown" id = "playlist" href = "index.html">Playlist</a></div>
+                    <div id = "credits"><a class = "dropdown" id = "credits" href = "index.html" >Credits</a></div>
+                </div>
+            </header>
+          <div class="item2" id="playlist">Details
+            <table id="PlaylistTable">
+              <thead id="playlistHeaderRow">
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Year</th>
+                <th>Genre</th>
+                <th>Popularity</th>
+                <th id="buttonPlaylist"></th>
+              </thead>
+              <tbody id="playlistBody">
+              </tbody>
+            </table>
+          </div>
+          <footer>
+            <h2 id = "footer-text">Ben Harris-Eze, Matthew Anand</h2>
+        </footer>
 </body>
+</section>
+
+
 <script src="genres.json"></script>
 <script src="sample-songs.json"></script>
 <script src = "artists.json"></script>
