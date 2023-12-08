@@ -53,7 +53,7 @@ function defaultSelect(pick)
    populateGenre();
    //Displaying All songs initially
    populateTable(sortedSongs);
-
+   headerSort(sortedSongs);
   
 
    // adding search method for song, artist, and genre
@@ -138,31 +138,165 @@ function defaultSelect(pick)
       else{
           alert("Nothing Selected");
       }
-
-
+      headerSort(songList);
+        
+   
     
   });
 
    //TODO event listeners for sorting songs when you click table headers
   
-   //artist filter 
-   document.querySelector("#artist-filter").addEventListener("click", (e) =>{
+  function headerSort(songList){
+    //artist filter 
+   document.querySelector(".artist-filter").addEventListener("click", (e) =>{
+    const sorted = songList.sort((a,b) =>{
+      //checking if a filter search has happened in the past
+      if (!e.target.classList.contains("on")){
+        if (a.artist.name.toLowerCase() < b.artist.name.toLowerCase()){
+          return -1;
+        }
+        else{
+          return 1;
+        }
+      }
+      else {
+        if (a.artist.name.toLowerCase() < b.artist.name.toLowerCase()){
+          return 1;
+        }
+        else{
+          return -1;
+        }
+      }
+     
+    });
+    //making sure classname is swiched to on/off
+    e.target.classList.toggle("on");
+    populateTable(sorted);
+   });
+
+           //popularity filter 
+   document.querySelector(".popularity-filter").addEventListener("click", (e) =>{
     //checking if a filter search has happened 
-    if (songList){
-      populateTable(songList.sort((a,b) =>{
-        if (a.song.artist.name < b.song.artist.name){
+    const sorted = songList.sort((a,b) =>{
+      if (a.details.popularity < b.details.popularity){
+        return -1;
+      }
+      else{
+        return 1;
+      }
+    });
+   
+    populateTable(sorted);
+   });     
+
+   //genre filter 
+   document.querySelector(".genre-filter").addEventListener("click", (e) =>{
+    //checking if a filter search has happened 
+    const sorted = songList.sort((a,b) =>{
+
+      
+      if (a.genre.name.toLowerCase() < b.genre.name.toLowerCase()){
+        return -1;
+      }
+      else{
+        return 1;
+      }
+    });
+   
+    populateTable(sorted);
+   });
+   // title filter 
+   document.querySelector(".title-filter").addEventListener("click", (e) =>{
+    let header = document.querySelector(".title-filter"); 
+    //sorting list of songs by title 
+    const sorted = songList.sort((a,b) =>{
+        //checking if a filter search has happened in the past
+      if (!header.classList.contains("on")){
+        if (a.title.toLowerCase() < b.title.toLowerCase()){
+          return -1;
+        }
+        else{
+          return 1;
+        }
+      }
+      //reverse sorting lists of songs by title
+      else{
+        if (a.title.toLowerCase() < b.title.toLowerCase()){
+          return 1;
+        }
+        else{
+          return -1;
+        }
+      }
+      
+    });
+    //making sure sort has been noticed 
+    header.classList.toggle("on");
+    //displaying the new sorted table
+    populateTable(sorted);
+   });
+
+   //year filter
+   document.querySelector(".year-filter").addEventListener("click", (e) =>{
+    let header = document.querySelector(".year-filter"); 
+    
+    const sorted = songList.sort((a,b) =>{
+     //checking if a sort has already happened 
+      //case for if sort hasnt happened 
+      if (!header.classList.contains("on")){
+        if (a.year < b.year){
           return -1;
         }
         else {
           return 1;
         }
-      }));
+      }
+      //case for if sort has already happened before
+      else {
+        if (b.year < a.year){
+          return -1;
+        }
+        else {
+          return 1;
+        }
+      }
+    });
+    //toggling header to keep track of a sort that has just happened
+    header.classList.toggle("on");
+    //updating table with sorted array
+    populateTable(sorted);
+   });
+
+
+
+   //filter method to shorten code
+   function filter(e, property){
+    const sorted = songList.sort((a,b) =>{
+      if (!e.target.classList.contains("on")){
+        if (a[prop] < b[prop]){
+          return -1;
+        }
+        else{
+          return 1;
+        }
+      }
+      else{
+        if (a[prop] < b[prop]){
+          return 1;
+        }
+        else {
+          return -1;
+        }
+      }
+      });
+     //toggling header to keep track of a sort that has just happened
+      e.target.classList.toggle("on");
+      //updating table with sorted array
+      populateTable(sorted);
     }
-    
-    tableRows = document.querySelectorAll("tbody tr");
-    console.log(tableRows[0]);
-    
-   })
+
+   //
+  }
   
   
    // TODO Clicking song brings up Song
@@ -180,57 +314,44 @@ function defaultSelect(pick)
    //end of dom content loaded 
   });
    
- 
-
-
+ /**
+  * This method is used to populate the artist select element with all the artists from the artist JSON file
+  */
 function populateArtist(){
-
     //getting select from html document 
     const select = document.querySelector("#artistSelect");
     defaultSelect(select);
-    
+    //iterating through artists 
         for(a of artist){
-            // storing the current artists name as a text node
-            const artistName = document.createTextNode(`${a.name}`);
            // creating option elemenet
             const option = document.createElement("option");
-            //adding the artist name as a text node inbetween the option tags 
-            option.appendChild(artistName);
-
+            //adding the artist name as text 
+            option.textContent = a.name;
             //adding id value to artist option
-            option.setAttribute("value",`${a.id}`);
-
+            option.value = a.id;
             //adding this artists name as one of the options in the select tag
-            select.appendChild(option);
-            
+            select.appendChild(option);  
         }
-   
 }
-
 /**
- * function for filling out the select with options of all genres
+ * function for filling out the select with options of all genres from the JSON file
  */
 function populateGenre(){
-  
   const select = document.querySelector("#genreSelect");
   //default selection
   defaultSelect(select);
-  
+  //iterating through all genres
   for (g of genre){
-    // creating genre text to add to the option 
-    const genreName = document.createTextNode(`${g.name}`);
-    //creatin the option 
+    //creatin the option element 
     const option = document.createElement("option");
     //adding genre name to option
-    option.appendChild(genreName);
+    option.textContent = g.name;
     //giving the option a value
-    option.setAttribute("value",`${g.id}`);
-
+    option.value = g.id;
+  //adding the created option to the select element 
     select.appendChild(option);
   }
-
 }
-
 
 /**
  * Fills row based on object pased and property name passed
@@ -253,6 +374,7 @@ function fillRow(song, row, songProp){
 
 function populateTable(songList){
   //getting tbody that row will be added to
+  clear();
   const tbody = document.querySelector("tbody");
 
   // loop to go through every song from the api  
@@ -269,28 +391,12 @@ function populateTable(songList){
      fillRow(s.details,row,"popularity");
   }
 }
-
-/**
- * This method is used to filter the song based on the input chosen
- *
- */
-function filter(filterBy){
-
-}
-
 function clear(){
     let rows = document.querySelectorAll(".song-entry");
     for (let row of rows ){
         row.remove();
     }
 }
-
-
-
-//populateSong();
-//loadSongs();
-
-
 
 //clear event listener 
 const clearButton = document.querySelector("#clear-button");
