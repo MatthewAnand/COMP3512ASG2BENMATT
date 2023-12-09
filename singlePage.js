@@ -326,7 +326,12 @@ function populateTable(songList){
 
      //single song helper
      row.addEventListener("click", (e) =>{
-      console.log(e.target.parentNode);
+     
+      const selectedSong = songList.find((s) => {
+        return s.song_id == e.target.parentNode.dataset.id;
+      });
+      console.log(selectedSong.title);
+      buildViewSongButton(selectedSong);
      });
   }
 }
@@ -345,12 +350,10 @@ clearButton.addEventListener("click",clear);
 
 //SWITCHING TO SINGLESONG
 function buildViewSongButton(song){
-  seeSongButton.id = song.id;
-  seeSongButton.addEventListener("click", function(){
      singleSong = document.querySelector("#singleSongPage");
      home = document.querySelector("#home");
-    // singleSong.hidden = false;
-    // home.hidden=true;
+     singleSong.hidden = false;
+     home.hidden=true;
 
      // calc duration
      const songLength = document.querySelector("#duration");
@@ -426,7 +429,7 @@ function buildViewSongButton(song){
      pop.appendChild(popBar);
 
      //radarChart
-     buildChart(song.details.bpm, song.analytics.energy, song.analytics.danceability, song.analytics.liveness, song.analytics.valence, song.analytics.acousticness, song.analytics.speechiness, song.details.popularity);
-  })
+     //buildChart(song.details.bpm, song.analytics.energy, song.analytics.danceability, song.analytics.liveness, song.analytics.valence, song.analytics.acousticness, song.analytics.speechiness, song.details.popularity);
+  
 }
 
