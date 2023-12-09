@@ -14,7 +14,11 @@ function defaultSelect(pick)
 //adding api to read songs 
 
   document.addEventListener("DOMContentLoaded", () =>{
-   const url = 
+   //hiding single song view
+    document.querySelector("#singleSongPage").hidden = true;
+    //playlist to store songs
+    let playlist = [];
+    const url = 
    "http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
  
    //grabbing song data from api 
@@ -236,7 +240,7 @@ function defaultSelect(pick)
    
    
   }
-
+  showView();
   /** 
    //filter method to shorten code
    function filter(e, property){
@@ -307,6 +311,16 @@ function fillRow(song, row, songProp){
   tbody.appendChild(row);
 }
 
+function addSongButton(row){
+  //adding an add song button
+  const tbody = document.querySelector("tbody");
+  const button = document.createElement("button");
+  button.textContent = "add";
+  row.appendChild(button);
+  tbody.appendChild(row);
+
+}
+
 function populateTable(songList){
   //getting tbody that row will be added to
   clear();
@@ -323,6 +337,8 @@ function populateTable(songList){
      fillRow(s,row,"year");
      fillRow(s.genre,row,"name");
      fillRow(s.details,row,"popularity");
+    addSongButton(row);
+
 
      //single song helper
      row.addEventListener("click", (e) =>{
@@ -347,7 +363,29 @@ function clear(){
 const clearButton = document.querySelector("#clear-button");
 clearButton.addEventListener("click",clear);
 
+//SWITCHING TO SONG SEARCH or PLAYLIST VIEW
+function showView (){
+ //buttons that will be used to change  websites view
+  const header = document.querySelector("#websiteTitle");
+  const playlistButton = document.querySelector("#playlist a");
+  //sections of the website
+  const searchPage = document.querySelector("#home");
+  const playlistPage = document.querySelector("#playlistPage");
+  const singleSongPage = document.querySelector("#singleSongPage");
 
+  //event listener for search view
+    header.addEventListener("click", ()=>{
+      searchPage.hidden = false;
+      playlistPage.hidden = true;
+      singleSongPage.hidden = true;
+    });
+ //event listener for playlist view
+    playlistButton.addEventListener("click", () =>{
+      playlistPage.hidden = false;
+      searchPage.hidden = true;
+      singleSongPage.hidden = true;
+    });
+}
 //SWITCHING TO SINGLESONG
 function buildViewSongButton(song){
      singleSong = document.querySelector("#singleSongPage");
