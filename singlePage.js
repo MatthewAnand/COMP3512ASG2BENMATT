@@ -365,6 +365,8 @@ clearButton.addEventListener("click",clear);
 
 //SWITCHING TO SONG SEARCH or PLAYLIST VIEW
 function showView (){
+  //view header
+  const viewHeader = document.querySelector("#viewDescription");
  //buttons that will be used to change  websites view
   const header = document.querySelector("#websiteTitle");
   const playlistButton = document.querySelector("#playlist a");
@@ -375,12 +377,14 @@ function showView (){
 
   //event listener for search view
     header.addEventListener("click", ()=>{
+      viewHeader.textContent = "Song Search";
       searchPage.hidden = false;
       playlistPage.hidden = true;
       singleSongPage.hidden = true;
     });
  //event listener for playlist view
     playlistButton.addEventListener("click", () =>{
+      viewHeader.textContent = "Playlist";
       playlistPage.hidden = false;
       searchPage.hidden = true;
       singleSongPage.hidden = true;
@@ -388,6 +392,8 @@ function showView (){
 }
 //SWITCHING TO SINGLESONG
 function buildViewSongButton(song){
+    const viewHeader = document.querySelector("#viewDescription");
+    viewHeader.textContent = "Song Information";
      singleSong = document.querySelector("#singleSongPage");
      home = document.querySelector("#home");
      singleSong.hidden = false;
