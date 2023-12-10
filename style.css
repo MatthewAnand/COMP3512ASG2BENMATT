@@ -17,19 +17,19 @@ header .dropdown{
     float: right;
 }
 
-.chart{
-    flex-basis: 55%;
-    max-width: 43%;
-    /* The following ensures that the chart is centered both horizontally and vertically*/
+.container {
     display: flex;
-    align-items: center; 
-    justify-content: center;
-}
-canvas{
-    position: absolute;
-}
+    width: 100%;
+  }
 
-.flex-container{
-    display: flex;
-    background-color: DodgerBlue;
-}
+  .box {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+  }
+
+  .addButton{
+    align-items: center;
+    justify-content: center;
+  }

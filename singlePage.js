@@ -339,9 +339,10 @@ function addSongButton(row){
   //adding an add song button
   const tbody = document.querySelector("tbody");
   const button = document.createElement("button");
-  button.textContent = "add";
+  button.textContent = "➕";
   row.appendChild(button);
   tbody.appendChild(row);
+  button.className="addButton";
 
 }
 
