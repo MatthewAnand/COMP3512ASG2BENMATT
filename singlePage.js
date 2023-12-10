@@ -175,7 +175,7 @@ function defaultSelect(pick)
           const songToAdd = songList.find((s) =>{
             return s.song_id == e.target.parentNode.dataset.id
           })
-         
+         setTimeout(alert(`${songToAdd.title} by ${songToAdd.artist.name} has been added to your playlist`).close(), 5000);
           songPlaylist.push(songToAdd);
           console.log(songPlaylist);
           console.log(songToAdd.title);
