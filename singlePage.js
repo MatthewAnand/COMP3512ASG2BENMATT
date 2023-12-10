@@ -272,8 +272,22 @@ function showView (sortedSongs,songPlaylist){
   // METHOD adds to plalist array and displays it in a table
   function populatePlaylist(list){
     clear();
+    //clearing previous playlist details
+    for (detail of document.querySelectorAll("#playlist-details h2")){
+      detail.remove();
+    }
+    
     const tbody = document.querySelector("#playlistBody");
+    const duration = document.createElement("h2");
+    const avgPopularity = document.createElement("h2");
+    let avg = 0;
+    let totalDuration = 0;
+    const divDetails = document.querySelector("#playlist-details");
+    
     list.forEach((s) =>{
+      avg += s.details.popularity;
+      totalDuration += s.details.duration;
+
       const row = document.createElement("tr");
       row.className = "song-entry";
       row.dataset.id = s.song_id;
@@ -284,7 +298,6 @@ function showView (sortedSongs,songPlaylist){
       fillRow(s.genre,row,"name","genre-column","#playlistBody");
       fillRow(s.details,row,"popularity","popularity-column","#playlistBody");
       createClearButton(row);
-
       row.addEventListener("click",(e)=>{
         if (e.target.nodeName.toLowerCase() == "button"){
           let index = 0;
@@ -299,7 +312,20 @@ function showView (sortedSongs,songPlaylist){
           row.remove();
         }
       });
+
     });
+
+    avg = (avg/list.length).toFixed(1);
+    avgPopularity.textContent = `Average Popularity: ${avg}`;
+    if (avg>0)  divDetails.appendChild(avgPopularity);
+    
+    
+    let minutes = (totalDuration /60).toFixed(0);
+    let seconds = totalDuration %60;
+    totalDuration =  `${minutes} Minutes ${seconds} Seconds`;
+    duration.textContent = `Playlist Length: ${totalDuration}`;
+    if (totalDuration != '0:0')  divDetails.appendChild(duration);
+
     document.querySelector("#clearAll-button").addEventListener("click", (e)=>{
       list.length = 0;
       let rows = document.querySelectorAll("#playlistBody tr");
