@@ -13,6 +13,7 @@
     src: url("/Fonts/PPNeueMontreal-Medium.otf");
 }
 
+
 body{
     position: relative;
     height: 100vh;
@@ -36,7 +37,7 @@ header h1 {
    font-family: NeuMontrealBold;
    width: 30%;
    text-align: center;
-   color: white;
+   color: #C3B1E1;
    padding-top: 20px;
    padding: 10px;
    font-size: 50px;
@@ -56,7 +57,7 @@ header h1 {
 #credits,#playlist, #return{
     
     background-color: black;
-    color: white;
+    color: #C3B1E1;
     padding-bottom: 10px;
     border: 4px,solid,white;
     font-family: NeuMontreal;
@@ -85,7 +86,7 @@ footer{
 #footer-text{
     
     font-size: 15px;
-    color: white;
+    color: #C3B1E1;
     text-align: center;
     font-family: NeuMontreal;
     
@@ -159,7 +160,7 @@ select{
 #songInfo{
     max-width: 600px;
     margin: auto;
-    background-color: #fff;
+     background-color: #C3B1E1;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding-left: 0px;
@@ -169,16 +170,16 @@ select{
   #radar{
     max-width: 600px;
     margin: auto;
-    background-color: #fff;
+    background-color: #C3B1E1;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+   
   }
 
 #attributes-container {
     max-width: 600px;
     margin: auto;
-    background-color: #fff;
+    background-color: #C3B1E1;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 8px;
