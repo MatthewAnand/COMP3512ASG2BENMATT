@@ -1,0 +1,227 @@
+@font-face {
+    font-family: NeuMontrealBold;
+    src: url("/Fonts/PPNeueMontreal-Bold.otf");
+}
+
+@font-face {
+    font-family: NeuMontreal;
+    src: url("/Fonts/PPNeueMontreal-Book.otf");
+}
+
+@font-face {
+    font-family: NeuMontrealMed;
+    src: url("/Fonts/PPNeueMontreal-Medium.otf");
+}
+
+
+body{
+    position: relative;
+    height: 100vh;
+    width:100%;
+    margin: 0px;
+  
+}
+
+header{
+    background-color: black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+}
+div h1{
+    font-family: NeuMontrealBold;
+}
+header h1 {
+   margin: 0%; 
+   font-family: NeuMontrealBold;
+   width: 100%;
+   text-align: center;
+   color: white;
+   padding-top: 20px;
+   padding: 10px;
+   font-size: 50px;
+   
+}
+#clear-button, #filter{
+    background-color: black;
+    color:white;
+    width: 80px;
+}
+
+#playlist,#credits, #return{
+    display: inline;
+    align-items: center;
+}
+
+#credits,#playlist, #return{
+    
+    background-color: black;
+    color: white;
+    padding-bottom: 10px;
+    border: 4px,solid,white;
+    font-family: NeuMontreal;
+    margin-left: auto;
+    text-decoration: none;
+    font-size: 17px;
+}
+#playlistTable{
+    width: 100%;
+    height: 100px;
+    overflow-y: scroll;
+}
+.removeButton:hover{
+    background-color: red;
+}
+
+#credits:hover,#playlist:hover,#return:hover{
+    background-color: grey;
+}
+main{
+    background-color: white;
+    height: 87%;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    height: 2rem;
+   
+}
+
+#footer-text{
+    
+    font-size: 15px;
+    color: white;
+    text-align: center;
+    font-family: NeuMontreal;
+    
+}
+
+div h1{
+    color:black;
+}
+
+#viewDescription{
+    color: black;
+    font-family: NeuMontrealBold;
+    text-align: center;
+}
+
+h3{
+    font-family: NeuMontrealMed;
+}
+
+ h2{
+    font-family: NeuMontrealBold;
+}
+thead td{
+    font-family: NeuMontrealBold;
+}
+
+tbody td{
+    font-family: NeuMontrealMed;
+}
+
+option, select{
+    font-family: NeuMontrealMed;
+}
+
+button {
+    font-family: NeuMontrealBold;
+}
+#dropdown a{
+    cursor:pointer;
+}
+select{
+    width: 20%
+}
+.searchResult{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 20px;  
+}
+  
+  tr:nth-child(even){background-color: #f2f2f2
+}
+
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    padding-top: 60px;
+}
+
+/*
+.item2{
+    color: black;
+}
+*/
+#songInfo{
+    max-width: 600px;
+    margin: auto;
+     background-color: #C3B1E1;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  #radar{
+    max-width: 600px;
+    margin: auto;
+    background-color: #C3B1E1;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   
+  }
+
+#attributes-container {
+    max-width: 600px;
+    margin: auto;
+    background-color: #C3B1E1;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+  }
+#clearAll-button:hover{
+    background-color: red;
+}
+
+.addButton:hover{
+    background-color: green;
+}
+
+  .attribute {
+    margin-bottom: 15px;
+    font-family: NeuMontreal;
+  }
+
+  .attribute label {
+    font-weight: bold;
+    font-family: NeuMontreal;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .attribute-value {
+    font-size: 18px;
+  }
+
+  #playlist-container{
+    display: flex;
+    width: 80%; /* Adjust the width as needed */
+    margin: auto;
+  }
+
+
+
+
