@@ -172,6 +172,19 @@ function defaultSelect(pick)
         }
       });
     });
+    document.querySelector("#clearAll-button").addEventListener("click", (e)=>{
+      list = [];
+      let rows = document.querySelectorAll("#playlistBody tr");
+      for (let row of rows){
+          row.remove();
+      }
+    });
+  }
+
+  function playlistDetails(list){
+    const durationHeader = document.createElement("h2");
+    durationHeader.textContent = "Duration";
+    append
   }
   function populateTable(songList){
     //getting tbody that row will be added to
