@@ -141,7 +141,21 @@ function defaultSelect(pick)
     
   });
 
-  
+  function populatePlaylist(list){
+    clear();
+    const tbody = document.querySelector("#playlistBody");
+    list.forEach((s) =>{
+      const row = document.createElement("tr");
+      row.className = "song-entry";
+      row.dataset.id = s.song_id;
+      
+      fillRow(s,row,"title","song-column","#playlistBody");
+      fillRow(s.artist,row,"name","artist-column","#playlistBody");
+      fillRow(s,row,"year","year-column","#playlistBody");
+      fillRow(s.genre,row,"name","genre-column","#playlistBody");
+      fillRow(s.details,row,"popularity","popularity-column","#playlistBody");
+    });
+  }
   function populateTable(songList){
     //getting tbody that row will be added to
     clear();
@@ -152,12 +166,11 @@ function defaultSelect(pick)
       row.className = "song-entry";
       row.dataset.id = s.song_id;
   
-       //new way to append to row
-       fillRow(s,row,"title","song-column");
-       fillRow(s.artist,row,"name","artist-column");
-       fillRow(s,row,"year","year-column");
-       fillRow(s.genre,row,"name","genre-column");
-       fillRow(s.details,row,"popularity","popularity-column");
+       fillRow(s,row,"title","song-column", "#search-tbody");
+       fillRow(s.artist,row,"name","artist-column","#search-tbody");
+       fillRow(s,row,"year","year-column","#search-tbody");
+       fillRow(s.genre,row,"name","genre-column","#search-tbody");
+       fillRow(s.details,row,"popularity","popularity-column","#search-tbody");
       addSongButton(row);
        
       //event listener for single song page and adding songs to playlist 
@@ -184,6 +197,46 @@ function defaultSelect(pick)
   
     }
   }
+
+  //SWITCHING TO SONG SEARCH or PLAYLIST VIEW
+function showView (){
+  
+  //close view button
+  const close = document.querySelector("#return");
+  //view header
+  const viewHeader = document.querySelector("#viewDescription");
+ //buttons that will be used to change  websites view
+  const header = document.querySelector("#websiteTitle");
+  const playlistButton = document.querySelector("#playlist a");
+  //sections of the website
+  const searchPage = document.querySelector("#home");
+  const playlistPage = document.querySelector("#playlistPage");
+  const singleSongPage = document.querySelector("#singleSongPage");
+
+  //event listener for search view
+
+    close.addEventListener("click", ()=>{
+      close.hidden = true;
+      playlistButton.hidden = false;
+      populateTable(sortedSongs);
+      viewHeader.textContent = "Song Search";
+      searchPage.hidden = false;
+      playlistPage.hidden = true;
+      singleSongPage.hidden = true;
+
+    });
+ //event listener for playlist view
+    playlistButton.addEventListener("click", () =>{
+      close.hidden = false;
+      playlistButton.hidden = true;
+      viewHeader.textContent = "Playlist";
+      populatePlaylist(songPlaylist);
+      playlistPage.hidden = false;
+      searchPage.hidden = true;
+      singleSongPage.hidden = true;
+
+    });
+}
   
   function headerSort(songList){
     //artist filter 
@@ -321,9 +374,9 @@ list.forEach(obj =>{
  * @param {*} row 
  * @param {*} songProp property of the sog object you want
  */
-function fillRow(song, row, songProp, rowClassName){
+function fillRow(song, row, songProp, rowClassName,bodyID){
   //getting tbody 
-  const tbody = document.querySelector("tbody");
+  const tbody = document.querySelector(bodyID);
   //selecting table row 
   //creating a table description
   const entry = document.createElement("td");
@@ -357,42 +410,7 @@ function clear(){
 const clearButton = document.querySelector("#clear-button");
 clearButton.addEventListener("click",clear);
 
-//SWITCHING TO SONG SEARCH or PLAYLIST VIEW
-function showView (){
-  //close view button
-  const close = document.querySelector("#return");
-  //view header
-  const viewHeader = document.querySelector("#viewDescription");
- //buttons that will be used to change  websites view
-  const header = document.querySelector("#websiteTitle");
-  const playlistButton = document.querySelector("#playlist a");
-  //sections of the website
-  const searchPage = document.querySelector("#home");
-  const playlistPage = document.querySelector("#playlistPage");
-  const singleSongPage = document.querySelector("#singleSongPage");
 
-  //event listener for search view
-
-    close.addEventListener("click", ()=>{
-      close.hidden = true;
-      playlistButton.hidden = false;
-      viewHeader.textContent = "Song Search";
-      searchPage.hidden = false;
-      playlistPage.hidden = true;
-      singleSongPage.hidden = true;
-
-    });
- //event listener for playlist view
-    playlistButton.addEventListener("click", () =>{
-      close.hidden = false;
-      playlistButton.hidden = true;
-      viewHeader.textContent = "Playlist";
-      playlistPage.hidden = false;
-      searchPage.hidden = true;
-      singleSongPage.hidden = true;
-
-    });
-}
 //SWITCHING TO SINGLESONG
 function buildViewSongButton(song){
     const viewHeader = document.querySelector("#viewDescription");
