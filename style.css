@@ -11,9 +11,25 @@ header{
 
 }
 
-header h1 {
-}
+
 
 header .dropdown{
     float: right;
+}
+
+.chart{
+    flex-basis: 55%;
+    max-width: 43%;
+    /* The following ensures that the chart is centered both horizontally and vertically*/
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+canvas{
+    position: absolute;
+}
+
+.flex-container{
+    display: flex;
+    background-color: DodgerBlue;
 }
