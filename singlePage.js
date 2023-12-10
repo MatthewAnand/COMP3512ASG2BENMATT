@@ -21,7 +21,7 @@ const song = JSON.parse(songs);
    }
    document.querySelector("#credits").addEventListener("click", () =>{
     showCredits();
-    //setTimeout(document.querySelector("#groupNames").hidden = true, 6000);
+    setTimeout(document.querySelector("#groupNames").hidden = true, 6000);
     setTimeout(document.querySelector("#github").hidden = true, 6000);
    });
     
