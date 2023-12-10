@@ -148,3 +148,7 @@ select{
     grid-template-columns: auto auto auto ;
     padding-top: 60px;
 }
+
+#playlist{
+    color: black;
+}
