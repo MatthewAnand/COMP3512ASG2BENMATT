@@ -143,12 +143,36 @@ select{
   tr:nth-child(even){background-color: #f2f2f2
 }
 
+/*
 .grid-container{
     display: grid;
-    grid-template-columns: auto auto auto ;
+    grid-template-columns: auto auto auto auto auto;
     padding-top: 60px;
 }
 
 .item2{
     color: black;
 }
+*/
+#attributes-container {
+    max-width: 600px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+
+  .attribute {
+    margin-bottom: 15px;
+  }
+
+  .attribute label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .attribute-value {
+    font-size: 18px;
+  }
