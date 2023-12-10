@@ -35,17 +35,24 @@ const song = JSON.parse(songs);
    if (localStorage.getItem("songData")){
     console.log("data is in local storage");
     sortedSongs = JSON.parse(localStorage.getItem("songData"));
-    sortedSongs =  sortedSongs.sort( (a,b) => {
-      if (a.title < b.title) return -1;
-      else return 1;
-   });
+
+    // Adding songs from api to song select tag
+   fillSelect(sortedSongs);
+   //Adding artist and genre to select tag
+   populate(artist,"#artistSelect");
+   populate(genre,"#genreSelect");
+   //Displaying All songs initially
+   populateTable(sortedSongs,songPlaylist);
+   headerSort(sortedSongs,songPlaylist);
+  /**
+   * Helper function  for finding specific genre selected
+   */
+  searchResult(sortedSongs, songPlaylist);
+
+  showView(sortedSongs,songPlaylist);
   }
   else{
-
-    
-  }
-   
-   //grabbing song data from api 
+     //grabbing song data from api 
    fetch(url)
    .then(resp => resp.json())
    .then(songs => {
@@ -58,120 +65,28 @@ const song = JSON.parse(songs);
       else{
         return 1;
       }
-      
-  
    });
-
    // Adding songs from api to song select tag
-   sortedSongs.forEach(s =>{
-
-    const select = document.querySelector("#songSelect");
-    const option = document.createElement("option");
-    option.textContent = s.title;
-    option.value = s.song_id;
-    option.className = "song-option";
-    select.appendChild(option);
-   })
-
+   fillSelect(sortedSongs);
    //Adding artist and genre to select tag
    populate(artist,"#artistSelect");
    populate(genre,"#genreSelect");
    //Displaying All songs initially
    populateTable(sortedSongs,songPlaylist);
    headerSort(sortedSongs,songPlaylist);
-  
-
-
-  /**
-   * Helper function for finding song selected
-  */
-  function searchSong(id){
-    const songList = sortedSongs.filter(s =>{
-      return id == s.song_id;
-    });
-
-    return songList;
-  }
-
-  /**
-   * Helper function  for finding specific artist selected
-   */
-  function searchArtists(id){
-    const songList = sortedSongs.filter(s =>{
-      return id == s.artist.id;
-    });
-    return songList;
-  }
-
   /**
    * Helper function  for finding specific genre selected
    */
-  function searchGenres(id){
-    const songList = sortedSongs.filter(s =>{
-      return id == s.genre.id;
-    });
-    
-    return songList;
-  }
-  searchResult(songPlaylist);
-
-  function searchResult(songList, songPlaylist){
-     //Filter Songs based on choice (radio buttons)  
-  const filterBtn = document.querySelector("#filter");
-
-  //adding handler for filter button
-  filterBtn.addEventListener("click",()=>{
-  // clearing previous search 
-  clear();
-
-  // getting all the radio buttons 
-  const buttons = document.querySelectorAll("input[type=radio]");
-
-    // checking for home of radio button to see which one is chosen 
-    let foundhome = 0;
-    let found = false;
-    for (let i =0; i < buttons.length; i++){
-      if (buttons[i].checked){
-          foundhome = i;
-          found = true;
-      }
-  }
-      const btn = buttons[foundhome];
-  
-      // filtering process depending on the selected radio button
-      
-      // variable for songs that will be displayed on table
-      let songList = [];
-
-      if (btn.value == "song" && found == true){
-        const songChoice = document.querySelector("#songSelect");
-        songList = searchSong(songChoice.value);
-        populateTable(songList,songPlaylist);
-      }
-      else if (btn.value== "genre" && found == true){
-        const genreChoice = document.querySelector("#genreSelect");
-        songList = searchGenres(genreChoice.value);
-        populateTable(songList,songPlaylist);
-      }
-      else if (btn.value == "artist" && found == true){
-        const artistChoice = document.querySelector("#artistSelect");
-        songList = searchArtists(artistChoice.value);
-        populateTable(songList,songPlaylist);
-      }
-      else{
-          alert("Nothing Selected");
-      }
-      headerSort(songList,songPlaylist);
-    
-  });
-
-  }
-
+  searchResult(sortedSongs, songPlaylist);
 
   showView(sortedSongs,songPlaylist);
 
+  let JSONData = JSON.stringify(sortedSongs);
+  localStorage.setItem("songData", JSONData);
    })
    .catch(error => console.log(error));
+    
+  }
 
   //CREDITS
   const showNames = document.querySelectorAll("a[href='#groupNames']");
@@ -184,9 +99,98 @@ const song = JSON.parse(songs);
   Git.addEventListener("click", function(){
      window.alert("https://github.com/MatthewAnand/COMP3512ASG2BENMATT");
   })}
-  
    //end of dom content loaded 
   });
+// method for filling song select with songs
+  function fillSelect(list){
+    list.forEach(s =>{
+      const select = document.querySelector("#songSelect");
+      const option = document.createElement("option");
+      option.textContent = s.title;
+      option.value = s.song_id;
+      option.className = "song-option";
+      select.appendChild(option);
+    });
+  }
+
+  function searchResult(songAPI, songPlaylist){
+    //Filter Songs based on choice (radio buttons)  
+ const filterBtn = document.querySelector("#filter");
+
+ //adding handler for filter button
+ filterBtn.addEventListener("click",()=>{
+ // clearing previous search 
+ clear();
+
+ // getting all the radio buttons 
+ const buttons = document.querySelectorAll("input[type=radio]");
+
+   // checking for home of radio button to see which one is chosen 
+   let foundhome = 0;
+   let found = false;
+   for (let i =0; i < buttons.length; i++){
+     if (buttons[i].checked){
+         foundhome = i;
+         found = true;
+     }
+ }
+     const btn = buttons[foundhome];
+     // filtering process depending on the selected radio button
+     
+     // variable for songs that will be displayed on table
+     let songList = [];
+
+     if (btn.value == "song" && found == true){
+       const songChoice = document.querySelector("#songSelect");
+       songList = searchSong(songChoice.value,songAPI);
+       populateTable(songList,songPlaylist);
+     }
+     else if (btn.value== "genre" && found == true){
+       const genreChoice = document.querySelector("#genreSelect");
+       songList = searchGenres(genreChoice.value,songAPI);
+       populateTable(songList,songPlaylist);
+     }
+     else if (btn.value == "artist" && found == true){
+       const artistChoice = document.querySelector("#artistSelect");
+       songList = searchArtists(artistChoice.value,songAPI);
+       populateTable(songList,songPlaylist);
+     }
+     else{
+         alert("Nothing Selected");
+     }
+     headerSort(songList,songPlaylist);
+   
+ });
+
+ }
+
+  //method for searching and returning all songs of a specific genre
+  function searchGenres(id,list){
+    const songList = list.filter(s =>{
+      return id == s.genre.id;
+    });
+    
+    return songList;
+  }
+   /**
+   * Helper function for finding song selected
+  */
+   function searchSong(id,list){
+    const songList = list.filter(s =>{
+      return id == s.song_id;
+    });
+
+    return songList;
+  }
+  /**
+   * Helper function  for finding specific artist selected
+   */
+  function searchArtists(id,list){
+    const songList = list.filter(s =>{
+      return id == s.artist.id;
+    });
+    return songList;
+  }
 
   //SWITCHING TO SONG SEARCH or PLAYLIST VIEW
 function showView (sortedSongs,songPlaylist){
