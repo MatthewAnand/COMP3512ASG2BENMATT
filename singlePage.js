@@ -173,7 +173,7 @@ function defaultSelect(pick)
       });
     });
     document.querySelector("#clearAll-button").addEventListener("click", (e)=>{
-      list = [];
+      list.length = 0;
       let rows = document.querySelectorAll("#playlistBody tr");
       for (let row of rows){
           row.remove();
