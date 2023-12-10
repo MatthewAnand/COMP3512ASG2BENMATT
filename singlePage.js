@@ -270,17 +270,8 @@ function showView (){
    
 }
 
-window.addEventListener("click", function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
+
+  //CREDITS
   const showNames = document.querySelectorAll("a[href='#groupNames']");
 for (let names of showNames){
 names.addEventListener("click", function(){
@@ -389,7 +380,19 @@ Git.addEventListener("click", function(){
     populateTable(sorted);
    });
    
-   
+   window.addEventListener("click", function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  })
+
   }
   showView();
   
@@ -599,4 +602,3 @@ function buildViewSongButton(song){
 }
 }
 
-  });
