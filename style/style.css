@@ -198,6 +198,4 @@ select{
     font-size: 18px;
   }
 
-  .side-container{
-    grid-template-rows: auto, auto;
-  }
+
