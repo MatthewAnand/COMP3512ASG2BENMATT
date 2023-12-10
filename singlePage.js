@@ -16,6 +16,8 @@ function defaultSelect(pick)
   document.addEventListener("DOMContentLoaded", () =>{
    //hiding single song view
     document.querySelector("#singleSongPage").hidden = true;
+    //hiding close button view 
+    document.querySelector("header").hidden = true;
     //playlist to store songs
     let playlist = [];
     const url = 
@@ -365,6 +367,8 @@ clearButton.addEventListener("click",clear);
 
 //SWITCHING TO SONG SEARCH or PLAYLIST VIEW
 function showView (){
+  //close view button
+  const close = document.querySelector("#return");
   //view header
   const viewHeader = document.querySelector("#viewDescription");
  //buttons that will be used to change  websites view
@@ -376,18 +380,25 @@ function showView (){
   const singleSongPage = document.querySelector("#singleSongPage");
 
   //event listener for search view
-    header.addEventListener("click", ()=>{
+  
+    close.addEventListener("click", ()=>{
+      close.hidden = true;
+      playlistButton.hidden = false;
       viewHeader.textContent = "Song Search";
       searchPage.hidden = false;
       playlistPage.hidden = true;
       singleSongPage.hidden = true;
+
     });
  //event listener for playlist view
     playlistButton.addEventListener("click", () =>{
+      close.hidden = false;
+      playlistButton.hidden = true;
       viewHeader.textContent = "Playlist";
       playlistPage.hidden = false;
       searchPage.hidden = true;
       singleSongPage.hidden = true;
+
     });
 }
 //SWITCHING TO SINGLESONG

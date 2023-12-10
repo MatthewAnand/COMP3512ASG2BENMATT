@@ -41,13 +41,18 @@ header h1 {
    font-size: 50px;
    
 }
+#clear-button, #filter{
+    background-color: black;
+    color:white;
+    width: 80px;
+}
 
-#playlist,#credits{
+#playlist,#credits, #return{
     display: inline;
     align-items: center;
 }
 
-#credits,#playlist{
+#credits,#playlist, #return{
     
     background-color: black;
     color: white;
@@ -59,7 +64,7 @@ header h1 {
     font-size: 17px;
 }
 
-#credits:hover,#playlist:hover{
+#credits:hover,#playlist:hover,#return:hover{
     background-color: grey;
 }
 main{
@@ -120,7 +125,9 @@ button {
 #dropdown a{
     cursor:pointer;
 }
-
+select{
+    width: 20%
+}
 .searchResult{
     border-collapse: collapse;
     border-spacing: 0;
