@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+    <title>Assignment 2</title>
+    <link rel="stylesheet" href="style/style.css">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+
+<body>
+    <header> 
+        <!-- this is for the github information -->
+        <h1 id ="websiteTitle">Notes</h1> 
+        <div id = "dropdown">
+            <div id = "playlist"><a class = "dropdown" id = "playlist">Playlist</a></div>
+            <div id = "return"><a class = "dropdown" id = "return">Return</a></div>
+            <div id = "credits"><a class = "dropdown" id = "credits">Credits</a>
+                <div id = "groupMembers" hidden><a id="groupNames">Group Members</a></div>
+                <div id="github" hidden><a href="https://github.com/MatthewAnand/COMP3512ASG2BENMATT.gits">Github</a></div>
+            </div>
+        </div>
+        
+    </header>
+    <h1 id ="viewDescription">Song Search</h1>
+    <hr>
+    <section id="home">
+    <main>
+       
+        
+        <form action ="/index.html" method="GET" class = "songFinder"> 
+            <!-- section for song selection-->
+            <div class = "songs">
+                <label><h3>Song</h3><input type="radio" name="choice" value ="song" class ="searchButtons"/></label>
+                <select id = "songSelect"><option value="default">--</option></select>
+            </div>
+
+             <!-- section for artist selection-->
+             <div class = "artists">
+                <label><h3>Artist</h3></label><input type="radio" name="choice" value = "artist" class ="searchButtons"/>
+                <select id ="artistSelect"><option value="default">--</option></select>
+            </div>
+              <!-- section for genre selection-->
+              <div class = "genres">
+                <h3>Genre</h3><input type="radio" name="choice" value = "genre" class ="searchButtons"/>
+                <select id = "genreSelect" ><option value="default">--</option></select>
+            </div>
+            <button type = "button" id = "clear-button">Clear</button>
+            <button type = "button" id="filter">Filter</button>
+            
+        </form>
+   <div style = "height: 300px; overflow: auto">
+        <table style="height: 600px" class = "searchResult">
+            <h2>Search Results</h2>
+            
+            <thead>
+                <tr>
+                    <td><label class ="title-filter">Title</label></td>
+                    <td><label class ="artist-filter">Artist</label></td>
+                    <td><label class ="year-filter">Year</label></td>
+                    <td><label class ="genre-filter">Genre</label></td>
+                    <td><label class ="popularity-filter">Popularity</label></td>
+                </tr>
+            </thead>
+            <tbody id ="search-tbody">
+                
+            </tbody>
+            
+           
+            
+        </table>
+   </div>     
+</main>
+</section>
+<!---SINGLESONG-->
+    <section id="singleSongPage">
+       
+        <div class="grid-container">
+            <div id = "songInfo">
+                <table id="songtable">
+                <thead>
+                    <tr>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Year</th>
+                    <th>Genre</th>
+                    <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td id="titleSong"></td>
+                    <td id="artist"></td>
+                    <td id="year"></td>
+                    <td id="genre"></td>
+                    <td id="duration"></td>
+                    </tr>
+                </tbody>
+                </table>
+             </div>
+                <!---
+            </div>
+                <div id="bpm"></div>
+                <div id="energy"></div>
+                <div id="danceability"></div>
+                <div id="liveness"></div>
+                <div id="valence"></div>
+                <div id="acousticness"></div>
+                <div id="speechiness"></div>
+                <div id="popularity"></div>
+        -->
+        <div id="attributes-container">
+            <div class="attribute" id="bpm">
+              <label for="bpm">BPM:</label>
+              <span id="bpm" class="attribute-value"></span>
+            </div>
+        
+            <div class="attribute" id="energy">
+              <label for="energy">Energy:</label>
+              <span id="energy" class="attribute-value"></span>
+            </div>
+        
+            <div class="attribute" id="danceability">
+              <label for="danceability">Danceability:</label>
+              <span id="danceability" class="attribute-value"></span>
+            </div>
+        
+            <div class="attribute" id="valence">
+              <label for="valence">Valence:</label>
+              <span id="valence" class="attribute-value"></span>
+            </div>
+        
+            <div class="attribute" id="liveness" >
+              <label for="liveness">Liveness:</label>
+              <span id="liveness" class="attribute-value"></span>
+            </div>
+        
+            <div class="attribute" id="acousticness">
+              <label for="acousticness">Acousticness:</label>
+              <span id="acousticness" class="attribute-value"></span>
+            </div>
+        
+            <div class="attribute" id="speechiness">
+              <label for="speechiness">Speechiness:</label>
+              <span id="speechiness" class="attribute-value"></span>
+            </div>
+        
+        
+            <div class="attribute" id="popularity">
+              <label for="popularity">Popularity:</label>
+              <span id="popularity" class="attribute-value"></span>
+            </div>
+          </div>
+         
+             <div id="radar"> 
+                <canvas id="song-chart" height="400px" width="400px"> </canvas> 
+             </div>
+          </div>
+          
+       </section>
+      <!--Playlist Page-->
+      <section id="playlistPage" hidden >
+    
+          <div class="item" style="height: 300px; overflow: auto">
+            <div id ="playlist-details"></div>
+            <table id="playlistTable" style = "height:200px;">
+              <thead id="playlistHeaderRow">
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Year</th>
+                <th>Genre</th>
+                <th>Popularity</th>
+                <th id="buttonPlaylist"></th>
+              </thead>
+              <tbody id="playlistBody">
+              </tbody>
+            </table>
+          </div>
+          <button id ="clearAll-button">Clear All</button>
+    </section>
+</body>
+<footer>
+    <h2 id = "footer-text">Ben Harris-Eze, Matthew Anand</h2>
+</footer>
+
+
+<script src="genres.json"></script>
+<script src="sample-songs.json"></script>
+<script src = "artists.json"></script>
+<script src = "singlePage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</html>
