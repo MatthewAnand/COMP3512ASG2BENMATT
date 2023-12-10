@@ -2,27 +2,49 @@ const artist = JSON.parse(artists);
 const genre = JSON.parse(genres);
 const song = JSON.parse(songs);
 
-/** Used to create default option in a select element (pick) */
-function defaultSelect(pick)
-{
-  const defaultSelect = document.createElement("option");
-  defaultSelect.value = "default";
-  defaultSelect.appendChild(document.createTextNode("--"))
-  pick.appendChild(defaultSelect);
-}
-
 //adding api to read songs 
 
   document.addEventListener("DOMContentLoaded", () =>{
+    
    //hiding single song view
     document.querySelector("#singleSongPage").hidden = true;
     //hiding close button view 
-    document.querySelector("header").hidden = true;
-    //playlist to store songs
+    document.querySelector("header").hidden = true; 
+       //showing credits 
+   function showCredits(){
+    document.querySelector("#groupNames").hidden = false;
+    document.querySelector("#github").hidden = false;
+   }
+   function hideCredits(timer){
+    setTimeout(document.querySelector("#groupNames").hidden = true, timer);
+    setTimeout(document.querySelector("#github").hidden = true, timer);
+   }
+   document.querySelector("#credits").addEventListener("click", () =>{
+    showCredits();
+    //setTimeout(document.querySelector("#groupNames").hidden = true, 6000);
+    setTimeout(document.querySelector("#github").hidden = true, 6000);
+   });
+    
+   //playlist to store songs
     let songPlaylist = [];
+    let sortedSongs = [];
     const url = 
    "http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
  
+   //checking if local storage has data 
+   if (localStorage.getItem("songData")){
+    console.log("data is in local storage");
+    sortedSongs = JSON.parse(localStorage.getItem("songData"));
+    sortedSongs =  sortedSongs.sort( (a,b) => {
+      if (a.title < b.title) return -1;
+      else return 1;
+   });
+  }
+  else{
+
+    
+  }
+   
    //grabbing song data from api 
    fetch(url)
    .then(resp => resp.json())
@@ -39,9 +61,6 @@ function defaultSelect(pick)
       
   
    });
-   
-   // adding default option to song select 
-   defaultSelect(document.querySelector("#songSelect"));
 
    // Adding songs from api to song select tag
    sortedSongs.forEach(s =>{
@@ -58,8 +77,8 @@ function defaultSelect(pick)
    populate(artist,"#artistSelect");
    populate(genre,"#genreSelect");
    //Displaying All songs initially
-   populateTable(sortedSongs);
-   headerSort(sortedSongs);
+   populateTable(sortedSongs,songPlaylist);
+   headerSort(sortedSongs,songPlaylist);
   
 
 
@@ -94,7 +113,10 @@ function defaultSelect(pick)
     
     return songList;
   }
-   //Filter Songs based on choice (radio buttons)  
+  searchResult(songPlaylist);
+
+  function searchResult(songList, songPlaylist){
+     //Filter Songs based on choice (radio buttons)  
   const filterBtn = document.querySelector("#filter");
 
   //adding handler for filter button
@@ -124,71 +146,87 @@ function defaultSelect(pick)
       if (btn.value == "song" && found == true){
         const songChoice = document.querySelector("#songSelect");
         songList = searchSong(songChoice.value);
-        populateTable(songList);
+        populateTable(songList,songPlaylist);
       }
       else if (btn.value== "genre" && found == true){
         const genreChoice = document.querySelector("#genreSelect");
         songList = searchGenres(genreChoice.value);
-        populateTable(songList);
+        populateTable(songList,songPlaylist);
       }
       else if (btn.value == "artist" && found == true){
         const artistChoice = document.querySelector("#artistSelect");
         songList = searchArtists(artistChoice.value);
-        populateTable(songList);
+        populateTable(songList,songPlaylist);
       }
       else{
           alert("Nothing Selected");
       }
-      headerSort(songList);
+      headerSort(songList,songPlaylist);
     
   });
 
-
-  function populatePlaylist(list){
-    clear();
-    const tbody = document.querySelector("#playlistBody");
-    list.forEach((s) =>{
-      const row = document.createElement("tr");
-      row.className = "song-entry";
-      row.dataset.id = s.song_id;
-      
-      fillRow(s,row,"title","song-column","#playlistBody");
-      fillRow(s.artist,row,"name","artist-column","#playlistBody");
-      fillRow(s,row,"year","year-column","#playlistBody");
-      fillRow(s.genre,row,"name","genre-column","#playlistBody");
-      fillRow(s.details,row,"popularity","popularity-column","#playlistBody");
-      createClearButton(row);
-
-      row.addEventListener("click",(e)=>{
-        if (e.target.nodeName.toLowerCase() == "button"){
-          let index = 0;
-          for (let i = 0; i<songPlaylist.length; i++){
-            if (e.target.parentNode.dataset.id == songPlaylist[i].song_id){
-              index = i;
-              songPlaylist.splice(index);
-              break;
-            }
-          }
-          
-          row.remove();
-        }
-      });
-    });
-    document.querySelector("#clearAll-button").addEventListener("click", (e)=>{
-      list.length = 0;
-      let rows = document.querySelectorAll("#playlistBody tr");
-      for (let row of rows){
-          row.remove();
-      }
-    });
   }
 
-  function playlistDetails(list){
-    const durationHeader = document.createElement("h2");
-    durationHeader.textContent = "Duration";
-    append
-  }
-  function populateTable(songList){
+
+  showView(sortedSongs,songPlaylist);
+
+   })
+   .catch(error => console.log(error));
+
+  //CREDITS
+  const showNames = document.querySelectorAll("a[href='#groupNames']");
+  for (let names of showNames){
+  names.addEventListener("click", function(){
+     window.alert("The Group Members Are: Ben Harris-Eze, and Matthew Anand")
+  })}
+  const showGit = document.querySelectorAll("a[href = '#github']");
+  for(Git of showGit){
+  Git.addEventListener("click", function(){
+     window.alert("https://github.com/MatthewAnand/COMP3512ASG2BENMATT");
+  })}
+  
+   //end of dom content loaded 
+  });
+
+  //SWITCHING TO SONG SEARCH or PLAYLIST VIEW
+function showView (sortedSongs,songPlaylist){
+  //close view button
+  const close = document.querySelector("#return");
+  //view header
+  const viewHeader = document.querySelector("#viewDescription");
+ //buttons that will be used to change  websites view
+  const header = document.querySelector("#websiteTitle");
+  const playlistButton = document.querySelector("#playlist a");
+  //sections of the website
+  const searchPage = document.querySelector("#home");
+  const playlistPage = document.querySelector("#playlistPage");
+  const singleSongPage = document.querySelector("#singleSongPage");
+
+  //event listener for search view
+    close.addEventListener("click", ()=>{
+      close.hidden = true;
+      playlistButton.hidden = false;
+      populateTable(sortedSongs,songPlaylist);
+      viewHeader.textContent = "Song Search";
+      searchPage.hidden = false;
+      playlistPage.hidden = true;
+      singleSongPage.hidden = true;
+
+    });
+ //event listener for playlist view
+    playlistButton.addEventListener("click", () =>{
+      close.hidden = false;
+      playlistButton.hidden = true;
+      viewHeader.textContent = "Playlist";
+      populatePlaylist(songPlaylist);
+      playlistPage.hidden = false;
+      searchPage.hidden = true;
+      singleSongPage.hidden = true;
+    });
+   
+}
+
+  function populateTable(songList,playlist){
     //getting tbody that row will be added to
     clear();
     const tbody = document.querySelector("tbody");
@@ -221,69 +259,55 @@ function defaultSelect(pick)
             return s.song_id == e.target.parentNode.dataset.id
           })
          setTimeout(alert(`${songToAdd.title} by ${songToAdd.artist.name} has been added to your playlist`), 5000);
-          songPlaylist.push(songToAdd);
-          console.log(songPlaylist);
+         playlist.push(songToAdd);
+          console.log(playlist);
           console.log(songToAdd.title);
          }
        });
   
     }
   }
+  // METHOD adds to plalist array and displays it in a table
+  function populatePlaylist(list){
+    clear();
+    const tbody = document.querySelector("#playlistBody");
+    list.forEach((s) =>{
+      const row = document.createElement("tr");
+      row.className = "song-entry";
+      row.dataset.id = s.song_id;
+      
+      fillRow(s,row,"title","song-column","#playlistBody");
+      fillRow(s.artist,row,"name","artist-column","#playlistBody");
+      fillRow(s,row,"year","year-column","#playlistBody");
+      fillRow(s.genre,row,"name","genre-column","#playlistBody");
+      fillRow(s.details,row,"popularity","popularity-column","#playlistBody");
+      createClearButton(row);
 
-  //SWITCHING TO SONG SEARCH or PLAYLIST VIEW
-function showView (){
-  
-  //close view button
-  const close = document.querySelector("#return");
-  //view header
-  const viewHeader = document.querySelector("#viewDescription");
- //buttons that will be used to change  websites view
-  const header = document.querySelector("#websiteTitle");
-  const playlistButton = document.querySelector("#playlist a");
-  //sections of the website
-  const searchPage = document.querySelector("#home");
-  const playlistPage = document.querySelector("#playlistPage");
-  const singleSongPage = document.querySelector("#singleSongPage");
-
-  //event listener for search view
-
-    close.addEventListener("click", ()=>{
-      close.hidden = true;
-      playlistButton.hidden = false;
-      populateTable(sortedSongs);
-      viewHeader.textContent = "Song Search";
-      searchPage.hidden = false;
-      playlistPage.hidden = true;
-      singleSongPage.hidden = true;
-
+      row.addEventListener("click",(e)=>{
+        if (e.target.nodeName.toLowerCase() == "button"){
+          let index = 0;
+          for (let i = 0; i<list.length; i++){
+            if (e.target.parentNode.dataset.id == list[i].song_id){
+              index = i;
+              list.splice(index);
+              break;
+            }
+          }
+          
+          row.remove();
+        }
+      });
     });
- //event listener for playlist view
-    playlistButton.addEventListener("click", () =>{
-      close.hidden = false;
-      playlistButton.hidden = true;
-      viewHeader.textContent = "Playlist";
-      populatePlaylist(songPlaylist);
-      playlistPage.hidden = false;
-      searchPage.hidden = true;
-      singleSongPage.hidden = true;
+    document.querySelector("#clearAll-button").addEventListener("click", (e)=>{
+      list.length = 0;
+      let rows = document.querySelectorAll("#playlistBody tr");
+      for (let row of rows){
+          row.remove();
+      }
     });
-   
-}
-
-
-  //CREDITS
-  const showNames = document.querySelectorAll("a[href='#groupNames']");
-for (let names of showNames){
-names.addEventListener("click", function(){
-   window.alert("The Group Members Are: Ben Harris-Eze, and Matthew Anand")
-})}
-const showGit = document.querySelectorAll("a[href = '#github']");
-for(Git of showGit){
-Git.addEventListener("click", function(){
-   window.alert("https://github.com/MatthewAnand/COMP3512ASG2BENMATT");
-})}
-  
-  function headerSort(songList){
+  }
+  // This method sorts songs based on the header clicked of a table
+  function headerSort(songList,playlist){
     //artist filter 
    document.querySelector(".artist-filter").addEventListener("click", (e) =>{
     const sorted = songList.sort((a,b) =>{
@@ -299,7 +323,7 @@ Git.addEventListener("click", function(){
     });
     //making sure classname is swiched to on/off
     e.target.classList.toggle("on");
-    populateTable(sorted);
+    populateTable(sorted,playlist);
    });
 
     //popularity filter 
@@ -316,7 +340,7 @@ Git.addEventListener("click", function(){
       }
       
     });
-    populateTable(sorted);
+    populateTable(sorted,playlist);
     e.target.classList.toggle("on");
     
    });     
@@ -337,7 +361,7 @@ Git.addEventListener("click", function(){
       }
     
     });
-    populateTable(sorted);
+    populateTable(sorted,playlist);
     e.target.classList.toggle("on")
    });
    // title filter 
@@ -357,7 +381,7 @@ Git.addEventListener("click", function(){
     });
     //making sure sort has been noticed 
     e.target.classList.toggle("on");
-    populateTable(sorted);
+    populateTable(sorted,playlist);
    });
 
    //year filter
@@ -377,7 +401,7 @@ Git.addEventListener("click", function(){
     //toggling header to keep track of a sort that has just happened
     e.target.classList.toggle("on");
     //updating table with sorted array
-    populateTable(sorted);
+    populateTable(sorted,playlist);
    });
    
    window.addEventListener("click", function(event) {
@@ -394,25 +418,11 @@ Git.addEventListener("click", function(){
   })
 
   }
-  showView();
-  
-  
-   
-   })
-   .catch(error => console.log(error));
-     
-
-
-   //end of dom content loaded 
-  });
-
 /**
  * function for filling out the select with options from a list 
  */
 function populate(list,selectID){
 const select = document.querySelector(selectID);
-//default selection
-defaultSelect(select);
 //iterating through all of list 
 list.forEach(obj =>{
   const option = document.createElement("option");
@@ -444,6 +454,7 @@ function fillRow(song, row, songProp, rowClassName,bodyID){
   //adding row to tbody
   tbody.appendChild(row);
 }
+//creates a clear song button for the playlist table
 function createClearButton(row){
   const tbody = document.querySelector("#playlistBody");
   const button = document.createElement("button");
@@ -452,6 +463,7 @@ function createClearButton(row){
   tbody.appendChild(row);
   button.className="removeButton";
 }
+//Adds a add song button for a song in row in a table
 function addSongButton(row){
   //adding an add song button
   const tbody = document.querySelector("tbody");
@@ -462,7 +474,7 @@ function addSongButton(row){
   button.className="addButton";
 
 }
-
+// This function clears all songs in a table
 function clear(){
     let rows = document.querySelectorAll(".song-entry");
     for (let row of rows ){

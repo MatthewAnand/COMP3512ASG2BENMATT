@@ -18,8 +18,8 @@
             <div id = "playlist"><a class = "dropdown" id = "playlist">Playlist</a></div>
             <div id = "return"><a class = "dropdown" id = "return">Return</a></div>
             <div id = "credits"><a class = "dropdown" id = "credits">Credits</a>
-                <a href="#groupNames">Group Members</a>
-                <a href="#github">Github</a>
+                <a href="#groupNames" id="groupNames" hidden>Group Members</a>
+                <a href="https://github.com/MatthewAnand/COMP3512ASG2BENMATT.gits" id="github" hidden>Github</a>
             </div>
         </div>
         
@@ -34,18 +34,18 @@
             <!-- section for song selection-->
             <div class = "songs">
                 <label><h3>Song</h3><input type="radio" name="choice" value ="song" class ="searchButtons"/></label>
-                <select id = "songSelect"></select>
+                <select id = "songSelect"><option value="default">--</option></select>
             </div>
 
              <!-- section for artist selection-->
              <div class = "artists">
                 <label><h3>Artist</h3></label><input type="radio" name="choice" value = "artist" class ="searchButtons"/>
-                <select id ="artistSelect"></select>
+                <select id ="artistSelect"><option value="default">--</option></select>
             </div>
               <!-- section for genre selection-->
               <div class = "genres">
                 <h3>Genre</h3><input type="radio" name="choice" value = "genre" class ="searchButtons"/>
-                <select id = "genreSelect" ></select>
+                <select id = "genreSelect" ><option value="default">--</option></select>
             </div>
             <button type = "button" id = "clear-button">Clear</button>
             <button type = "button" id="filter">Filter</button>
