@@ -36,6 +36,8 @@ function defaultSelect(pick)
       else{
         return 1;
       }
+      
+  
    });
    
    // adding default option to song select 
@@ -265,7 +267,30 @@ function showView (){
       searchPage.hidden = true;
       singleSongPage.hidden = true;
     });
+   
 }
+
+window.addEventListener("click", function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+  const showNames = document.querySelectorAll("a[href='#groupNames']");
+for (let names of showNames){
+names.addEventListener("click", function(){
+   window.alert("The Group Members Are: Ben Harris-Eze, and Matthew Anand")
+})}
+const showGit = document.querySelectorAll("a[href = '#github']");
+for(Git of showGit){
+Git.addEventListener("click", function(){
+   window.alert("https://github.com/MatthewAnand/COMP3512ASG2BENMATT");
+})}
   
   function headerSort(songList){
     //artist filter 
@@ -574,3 +599,4 @@ function buildViewSongButton(song){
 }
 }
 
+  });
