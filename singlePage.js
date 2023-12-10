@@ -19,7 +19,7 @@ function defaultSelect(pick)
     //hiding close button view 
     document.querySelector("header").hidden = true;
     //playlist to store songs
-    let playlist = [];
+    let songPlaylist = [];
     const url = 
    "http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
  
@@ -141,7 +141,49 @@ function defaultSelect(pick)
     
   });
 
-   //TODO event listeners for sorting songs when you click table headers
+  
+  function populateTable(songList){
+    //getting tbody that row will be added to
+    clear();
+    const tbody = document.querySelector("tbody");
+    // loop to go through every song from the api  
+    for(s of songList){
+      const row = document.createElement("tr");
+      row.className = "song-entry";
+      row.dataset.id = s.song_id;
+  
+       //new way to append to row
+       fillRow(s,row,"title","song-column");
+       fillRow(s.artist,row,"name","artist-column");
+       fillRow(s,row,"year","year-column");
+       fillRow(s.genre,row,"name","genre-column");
+       fillRow(s.details,row,"popularity","popularity-column");
+      addSongButton(row);
+       
+      //event listener for single song page and adding songs to playlist 
+       row.addEventListener("click", (e) =>{
+        //event listener for single song page and adding songs to playlist 
+       if (e.target.className == "song-column"){
+        const selectedSong = songList.find((s) => {
+          return s.song_id == e.target.parentNode.dataset.id;
+        });
+        buildViewSongButton(selectedSong);
+       }
+        //showing details of single song 
+        if (e.target.nodeName.toLowerCase() == "button"){
+          console.log(e.target.parentNode);
+          const songToAdd = songList.find((s) =>{
+            return s.song_id == e.target.parentNode.dataset.id
+          })
+         
+          songPlaylist.push(songToAdd);
+          console.log(songPlaylist);
+          console.log(songToAdd.title);
+         }
+       });
+  
+    }
+  }
   
   function headerSort(songList){
     //artist filter 
@@ -243,27 +285,6 @@ function defaultSelect(pick)
    
   }
   showView();
-  /** 
-   //filter method to shorten code
-   function filter(e, property){
-    const sorted = songList.sort((a,b) =>{
-      if (!e.target.classList.contains("on")){
-        if (a[prop] < b[prop]) return -1;
-        else return 1;
-      }
-      else{
-        if (a[prop] < b[prop]) return 1;
-        else return -1;
-      }
-      });
-     //toggling header to keep track of a sort that has just happened
-      e.target.classList.toggle("on");
-      //updating table with sorted array
-      populateTable(sorted);
-    } 
- */
-  
-   // TODO Clicking song brings up Song
   
   
    
@@ -300,13 +321,14 @@ list.forEach(obj =>{
  * @param {*} row 
  * @param {*} songProp property of the sog object you want
  */
-function fillRow(song, row, songProp){
+function fillRow(song, row, songProp, rowClassName){
   //getting tbody 
   const tbody = document.querySelector("tbody");
   //selecting table row 
   //creating a table description
   const entry = document.createElement("td");
   entry.textContent = song[songProp];
+  entry.className = rowClassName;
   //adding table description to table row 
   row.appendChild(entry);
   //adding row to tbody
@@ -321,37 +343,6 @@ function addSongButton(row){
   row.appendChild(button);
   tbody.appendChild(row);
 
-}
-
-function populateTable(songList){
-  //getting tbody that row will be added to
-  clear();
-  const tbody = document.querySelector("tbody");
-  // loop to go through every song from the api  
-  for(s of songList){
-    const row = document.createElement("tr");
-    row.className = "song-entry";
-    row.dataset.id = s.song_id;
-
-     //new way to append to row
-     fillRow(s,row,"title");
-     fillRow(s.artist,row,"name");
-     fillRow(s,row,"year");
-     fillRow(s.genre,row,"name");
-     fillRow(s.details,row,"popularity");
-    addSongButton(row);
-
-
-     //single song helper
-     row.addEventListener("click", (e) =>{
-     
-      const selectedSong = songList.find((s) => {
-        return s.song_id == e.target.parentNode.dataset.id;
-      });
-      console.log(selectedSong.title);
-      buildViewSongButton(selectedSong);
-     });
-  }
 }
 
 function clear(){
