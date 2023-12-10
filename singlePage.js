@@ -372,7 +372,7 @@ function showView (){
   const singleSongPage = document.querySelector("#singleSongPage");
 
   //event listener for search view
-  
+
     close.addEventListener("click", ()=>{
       close.hidden = true;
       playlistButton.hidden = false;
