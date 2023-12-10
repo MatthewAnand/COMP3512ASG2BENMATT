@@ -71,9 +71,10 @@
 </main>
 
 </section>
-
     <section id="singleSongPage">
+        <div class="flex-container" id="singleSongBox"></div>
             <h3>Song Information</h3>
+            <div id="songTableBox">
             <table id="songtable">
               <thead>
                 <tr>
@@ -104,10 +105,10 @@
               <li id="speechiness"></li>
               <li id="popularity"></li>
             </ul>
-          <div class="radar"> 
-              <canvas id="myChart" style="height: 600px"></canvas>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          <div class="chart" id="radar"> 
+            <canvas id="song-chart" margin="5px auto"> </canvas> 
+          </div>
           <footer>
             <h2 id = "footer-text">Ben Harris-Eze, Matthew Anand</h2>
         </footer>
@@ -140,4 +141,5 @@
 <script src="sample-songs.json"></script>
 <script src = "artists.json"></script>
 <script src = "singlePage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </html>

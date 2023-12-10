@@ -473,7 +473,46 @@ function buildViewSongButton(song){
      pop.appendChild(popBar);
 
      //radarChart
-     //buildChart(song.details.bpm, song.analytics.energy, song.analytics.danceability, song.analytics.liveness, song.analytics.valence, song.analytics.acousticness, song.analytics.speechiness, song.details.popularity);
+     buildChart(song.details.bpm, song.analytics.energy, song.analytics.danceability, song.analytics.liveness, song.analytics.valence, song.analytics.acousticness, song.analytics.speechiness, song.details.popularity);
   
+     function buildChart(bpm, energy, dance, live, valence, acoustic, speech, pop){
+      // if chart exists, destroy.
+      if(typeof radarChart != "undefined"){
+         radarChart.destroy();
+      }
+      
+   
+          const ctx = document.getElementById('song-chart');
+          radarChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+              labels: ['BPM', 'Energy', 'Danceability', 'Liveness', 'Valence', 'Acousticness', 'Speechiness',
+                'Popularity'
+              ],
+              datasets: [{
+                label: 'Song Data',
+                data: [bpm, energy, dance, live, valence, acoustic, speech, pop],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(0,175,236,255)',
+                pointBackgroundColor: 'rgba(11,49,86,255)',
+                pointBorderColor: 'rgba(11,49,86,255)',
+                pointHoverBackgroundColor: '#ffff',
+                pointHoverBorderColor: '#0b88c3'
+              }]
+            },
+            options: {
+               maintainAspectRatio: false,
+            },
+            scale: {
+               angleLines: {
+                  color: 'rgba(240, 240, 240,0.5)',
+              },
+   
+              grid: {
+                  color: "lightgreen",
+              },
+             },
+          });
+}
 }
 
