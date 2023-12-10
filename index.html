@@ -73,44 +73,43 @@
 </section>
 <!---SINGLESONG-->
     <section id="singleSongPage">
-        <div class="container"></div>
-            <h3>Song Information</h3>
-            <div class="box">
-            <table id="songtable">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Artist</th>
-                  <th>Year</th>
-                  <th>Genre</th>
-                  <th>Duration</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td id="titleSong"></td>
-                  <td id="artist"></td>
-                  <td id="year"></td>
-                  <td id="genre"></td>
-                  <td id="duration"></td>
-                </tr>
-              </tbody>
-            </table>
-            <ul id="dataList">
-              <li id="bpm"></li>
-              <li id="energy"></li>
-              <li id="danceability"></li>
-              <li id="liveness"></li>
-              <li id="valence"></li>
-              <li id="acousticness"></li>
-              <li id="speechiness"></li>
-              <li id="popularity"></li>
-            </ul>
+        <div class="grid-container">
+           
+            <div id = "songInfo">
+                <table id="songtable">
+                <thead>
+                    <tr>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Year</th>
+                    <th>Genre</th>
+                    <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td id="titleSong"></td>
+                    <td id="artist"></td>
+                    <td id="year"></td>
+                    <td id="genre"></td>
+                    <td id="duration"></td>
+                    </tr>
+                </tbody>
+                </table>
+                <ul id="dataList">
+                <li id="bpm"></li>
+                <li id="energy"></li>
+                <li id="danceability"></li>
+                <li id="liveness"></li>
+                <li id="valence"></li>
+                <li id="acousticness"></li>
+                <li id="speechiness"></li>
+                <li id="popularity"></li>
+                </ul>
             </div>
-          <div clas="box"> 
-            <canvas id="song-chart"> </canvas> 
-          </div>
-        
+             <div id="radar"> 
+                <canvas id="song-chart" height="300px" width="300px"> </canvas> 
+             </div>
           </div>
           <footer>
             <h2 id = "footer-text">Ben Harris-Eze, Matthew Anand</h2>
