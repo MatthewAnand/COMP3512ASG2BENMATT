@@ -192,13 +192,22 @@ select{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 8px;
   }
+#clearAll-button:hover{
+    background-color: red;
+}
+
+.addButton:hover{
+    background-color: green;
+}
 
   .attribute {
     margin-bottom: 15px;
+    font-family: NeuMontreal;
   }
 
   .attribute label {
     font-weight: bold;
+    font-family: NeuMontreal;
     display: block;
     margin-bottom: 5px;
   }

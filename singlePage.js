@@ -258,14 +258,12 @@ function showView (sortedSongs,songPlaylist){
        }
         //showing details of single song 
         if (e.target.nodeName.toLowerCase() == "button"){
-          console.log(e.target.parentNode);
+
           const songToAdd = songList.find((s) =>{
             return s.song_id == e.target.parentNode.dataset.id
           })
          setTimeout(alert(`${songToAdd.title} by ${songToAdd.artist.name} has been added to your playlist`), 5000);
          playlist.push(songToAdd);
-          console.log(playlist);
-          console.log(songToAdd.title);
          }
        });
   
