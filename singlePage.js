@@ -141,6 +141,7 @@ function defaultSelect(pick)
     
   });
 
+
   function populatePlaylist(list){
     clear();
     const tbody = document.querySelector("#playlistBody");
@@ -154,6 +155,22 @@ function defaultSelect(pick)
       fillRow(s,row,"year","year-column","#playlistBody");
       fillRow(s.genre,row,"name","genre-column","#playlistBody");
       fillRow(s.details,row,"popularity","popularity-column","#playlistBody");
+      createClearButton(row);
+
+      row.addEventListener("click",(e)=>{
+        if (e.target.nodeName.toLowerCase() == "button"){
+          let index = 0;
+          for (let i = 0; i<songPlaylist.length; i++){
+            if (e.target.parentNode.dataset.id == songPlaylist[i].song_id){
+              index = i;
+              songPlaylist.splice(index);
+              break;
+            }
+          }
+          
+          row.remove();
+        }
+      });
     });
   }
   function populateTable(songList){
@@ -234,7 +251,6 @@ function showView (){
       playlistPage.hidden = false;
       searchPage.hidden = true;
       singleSongPage.hidden = true;
-
     });
 }
   
@@ -387,7 +403,14 @@ function fillRow(song, row, songProp, rowClassName,bodyID){
   //adding row to tbody
   tbody.appendChild(row);
 }
-
+function createClearButton(row){
+  const tbody = document.querySelector("#playlistBody");
+  const button = document.createElement("button");
+  button.textContent = "Remove";
+  row.appendChild(button);
+  tbody.appendChild(row);
+  button.className="removeButton";
+}
 function addSongButton(row){
   //adding an add song button
   const tbody = document.querySelector("tbody");
