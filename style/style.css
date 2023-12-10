@@ -66,6 +66,10 @@ header h1 {
     font-size: 17px;
 }
 
+.removeButton:hover{
+    background-color: red;
+}
+
 #credits:hover,#playlist:hover,#return:hover{
     background-color: grey;
 }
