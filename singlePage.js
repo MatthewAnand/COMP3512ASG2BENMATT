@@ -29,7 +29,7 @@ const song = JSON.parse(songs);
     let songPlaylist = [];
     let sortedSongs = [];
     const url = 
-   "http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
+   "https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php";
  
    //checking if local storage has data 
    if (localStorage.getItem("songData")){
